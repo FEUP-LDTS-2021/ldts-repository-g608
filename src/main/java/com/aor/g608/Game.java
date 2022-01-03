@@ -22,7 +22,7 @@ public class Game {
             screen.startScreen();
             screen.doResizeIfNecessary();
             screen.clear();
-            screen.setCharacter(10, 10, TextCharacter.fromCharacter('O')[0]);
+            screen.setCharacter(10, 10, TextCharacter.fromCharacter('C')[0]);
             screen.refresh();
         } catch (IOException e){
             e.printStackTrace();
