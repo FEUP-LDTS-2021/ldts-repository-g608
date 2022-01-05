@@ -17,51 +17,27 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    private int x = 10, y = 10;
+    private Map map;
 
-    public Game(){
-        try {
-            TerminalSize terminalSize = new TerminalSize(40, 20);
+
+    public Game() throws IOException {
+            TerminalSize terminalSize = new TerminalSize(40, 40);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
-            Screen screen = new TerminalScreen(terminal);
-
+            screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
+            map = new Map(40, 40);
+        }
+
+        private void draw () throws IOException {
             screen.clear();
-            screen.setCharacter(x, y, TextCharacter.fromCharacter('O')[0]);
+            map.draw(screen.newTextGraphics());
             screen.refresh();
-        } catch (IOException e){
-            e.printStackTrace();
         }
 
-    }
-
-    public void run() throws IOException {
-        try {
-            while(true) {
-                draw();
-                KeyStroke key = screen.readInput();
-                processKey(key);
-
-                if (key.getKeyType() == KeyType.Character && key.getCharacter() == ('q'))
-                    screen.close();
-                if (key.getKeyType() == KeyType.EOF)
-                    break;
-
-            }
-        } catch (IOException e){
-            e.printStackTrace();
+        public void run () throws IOException {
+            draw();
         }
     }
-
-    private void draw() throws IOException{
-
-    }
-
-    private void processKey(KeyStroke key){
-        System.out.println(key);
-    }
-
-}
