@@ -20,15 +20,16 @@ public class Game {
     private Map map;
 
 
+
     public Game() throws IOException {
-            TerminalSize terminalSize = new TerminalSize(40, 40);
+            TerminalSize terminalSize = new TerminalSize(40, 20);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);
             screen.startScreen();
             screen.doResizeIfNecessary();
-            map = new Map(40, 40);
+            map = new Map(40, 20);
         }
 
         private void draw () throws IOException {
