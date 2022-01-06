@@ -1,13 +1,10 @@
-# ldts-repository-g608
-
-# LDTS_T06_G01 - OVERKILL
+# LDTS_T06_G608 - PACMAN
 
 ## Game Description
 
-The OVERKILL is a rogue-like shooter based game where you have to murder different waves of enemies, obtaining coins with each kill and having the chance to level up your power with the help of new guns.
-The variety of levels will have increased difficulty with different bullet speeds and strategic enemies.
+Our game is based on a game called Pacman, originally created by ®NAMCO, basically is a circle running to eat coins while monsters chase him. If he eats all the coins, he wins.
 
-This project was developed by Donal Knuth (knuth@edu.fe.up.pt), Timothy J. Berners-Lee (timothy@edu.fe.up.pt) and Vinton G. Cerf (vinton@edu.fe.up.pt) for LDTS 2021-22.
+This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (timothy@edu.fe.up.pt) and Carlota Leite (vinton@edu.fe.up.pt) for LDTS 2021-22.
 
 For a more detailed version of this description click [here](./docs/README.md).
 
