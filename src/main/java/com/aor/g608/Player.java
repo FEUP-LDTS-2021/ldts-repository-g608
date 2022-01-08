@@ -1,5 +1,6 @@
 package com.aor.g608;
 
+import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -9,7 +10,7 @@ public class Player {
     private Position position;
 
     public Player(int x, int y) {
-        position = new Position(x,y);
+        position = new Position(x, y);
     }
 
     public Position getPosition() {
@@ -20,9 +21,10 @@ public class Player {
         this.position = position;
     }
 
+
     public void draw(TextGraphics screen){
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        screen.setForegroundColor(TextColor.ANSI.YELLOW);
         screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "C");
+        screen.putString(new TerminalPosition(position.getX(), position.getY()), "C");
     }
 }

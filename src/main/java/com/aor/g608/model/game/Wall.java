@@ -1,24 +1,15 @@
-package com.aor.g608;
+package com.aor.g608.model.game;
 
-import com.aor.g608.model.Position;
+import com.aor.g608.Element;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Wall {
-    private Position position;
+public class Wall extends Element {
 
-    public Wall(int x, int y) {
-        position = new Position(x,y);
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
+    public Wall(int x, int y){
+        super(x,y);
     }
 
     public void draw(TextGraphics screen){
@@ -26,5 +17,15 @@ public class Wall {
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "#");
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null || this.getClass() != o.getClass()) return false;
+
+        return(this == o ||
+                this.getPosition().equals(((Wall) o).getPosition()));
+
+    }
+
 
 }
