@@ -31,6 +31,8 @@ The main pattern applied to the project is the **_Architectural Pattern_**, more
 Regarding the implementation, we now have classes which main purpose is to store data (model), classes that control the logic of the game (controllers) and classes that are responsible for the visual effects on the screen (viewers), these types of classes associate with each other in the following manner:
 
 #### Consequences:
-The use of these patterns in the current design allow the following benefits:
-- A well organized code.
-- Easy to add new features throughout the development stage.
+-The model only represents the data.
+-The view displays the model data, and sends user actions to the controller.
+-The controller provides model data to the view, and interprets user actions.
+-A well organized code.
+-Easy to add new features throughout the development stage.
