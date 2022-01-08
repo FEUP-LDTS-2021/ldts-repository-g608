@@ -10,7 +10,7 @@ public class Player {
     private Position position;
 
     public Player(int x, int y) {
-        position = new Position(x,y);
+        position = new Position(x, y);
     }
 
     public Position getPosition() {
@@ -23,9 +23,8 @@ public class Player {
 
 
     public void draw(TextGraphics screen){
-        screen.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        screen.setForegroundColor(TextColor.ANSI.YELLOW);
         screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "C");
-        screen.setCharacter(10, 20, 'c');
+        screen.putString(new TerminalPosition(position.getX(), position.getY()), "C");
     }
 }
