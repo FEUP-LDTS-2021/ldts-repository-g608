@@ -2,11 +2,17 @@
 
 ## Game Description
 
-Our game is based on a game called Pacman, originally created by ®NAMCO, basically is a circle running to eat coins in a maze while monsters chase him. If he eats all the coins, he wins and if the ghosts catch him he loses.
+Our game is based on a game called Pacman, originally created by ®NAMCO, the player is running to get pellets in a maze while ghosts are chasing him. If he gets all the pellets, he wins and if the ghosts catches him he loses. The player can eat a special pelllet that works like a powerup and lets the player eat the ghosts to earn extra points and facilitate catching all the pellets.
+
+The features implemented in our game are:
+-A map with collisions
+-Ghosts that chase the player
+-Pellets that give points
+-A special pellet that lets the player eat the ghosts
+-A leaderboard
+-Menu
 
 This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
-
-For a more detailed version of this description click [here](./docs/README.md).
 
 ## Screenshots
 
