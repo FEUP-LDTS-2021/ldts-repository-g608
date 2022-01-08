@@ -2,9 +2,9 @@
 
 ## Game Description
 
-Our game is based on a game called Pacman, originally created by ®NAMCO, basically is a circle running to eat coins while monsters chase him. If he eats all the coins, he wins.
+Our game is based on a game called Pacman, originally created by ®NAMCO, basically is a circle running to eat coins in a maze while monsters chase him. If he eats all the coins, he wins and if the ghosts catch him he loses.
 
-This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (timothy@edu.fe.up.pt) and Carlota Leite (vinton@edu.fe.up.pt) for LDTS 2021-22.
+This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
 
 For a more detailed version of this description click [here](./docs/README.md).
 
