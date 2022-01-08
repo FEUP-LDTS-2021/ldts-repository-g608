@@ -20,10 +20,10 @@ The following screenshots ilustrate the general look of our game, as well as the
 ### Game preview
 
 <p align="center" justify="center">
-  <img src="docs/gifs/preview.gif"/>
+  <img src="docs/mokcup.jpeg"/>
 </p>
 <p align="center">
-  <b><i>Gif 1. Sneak peak into OVERKILL game</i></b>
+  <b><i>Gif 1. Game Mockup </i></b>
 </p>
 <br>
 <br />
