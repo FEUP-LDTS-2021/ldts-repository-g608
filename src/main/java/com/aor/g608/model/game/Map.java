@@ -18,7 +18,7 @@ public class Map implements GhostDatabase{
     private GhostDatabase database;
 
 
-    private List<Wall> walls = new ArrayList<>();
+    private List<Wall> walls;
     private List<Ghost> ghosts;
 
     private Player player;
@@ -36,7 +36,8 @@ public class Map implements GhostDatabase{
         player = new Player(10, 10);
         this.height = height;
         this.width = width;
-
+        walls = createWalls();
+        ghosts = createGhosts();
 
     }
 
@@ -77,7 +78,7 @@ public class Map implements GhostDatabase{
 
 
     public void draw(TextGraphics screen) {
-        screen.setBackgroundColor(TextColor.ANSI.BLUE);
+        screen.setBackgroundColor(TextColor.ANSI.BLACK);
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         screen.enableModifiers(SGR.BOLD);
 
@@ -119,20 +120,17 @@ public class Map implements GhostDatabase{
         return walls;
     }
 
-    /*
-    private List<Ghost> createMonsters() {
+    private List<Ghost> createGhosts() {
         Random random = new Random();
         ArrayList<Ghost> ghosts = new ArrayList<>();
-        int a = 2;
-        for(int i=0; i<5; i++){
-            Ghost newmonster = new Ghost(width-a, height-a, "YELLOW");
-            a += 2;
-            if(!ghosts.contains(newmonster) && !newmonster.getPosition().equals(player.getPosition()))
-                ghosts.add(newmonster);
+        for(int i=0; i<4; i++){
+            Ghost newGhost = new Ghost(random.nextInt(width-2) + 1, random.nextInt(height-2)+1, "Yellow");
+            if(!ghosts.contains(newGhost) && !newGhost.getPosition().equals(player.getPosition()))
+                ghosts.add(newGhost);
         }
         return ghosts;
     }
-    */
+
 
 
     @Override
