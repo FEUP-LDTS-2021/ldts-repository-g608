@@ -16,7 +16,7 @@ public class Pellet extends Element{
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "$");
     }
-
+/*
         @Override
         public boolean equals(Object o){
         if(o == null || this.getClass() != o.getClass()) return false;
@@ -24,6 +24,8 @@ public class Pellet extends Element{
         return(this == o || this.getPosition().equals(Pellet.getPosition()));
 
     }
+
+ */
 }
 
 
