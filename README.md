@@ -14,10 +14,10 @@ This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), A
 ## Planned Features
 
 - **Collisions detection** - Collisions between different objects are verified. (Ex: Player, Enemies, Obstacles).
-- **Score System** - Everytime the player catches the pellets or eat the ghosts he gets a score that is registeres and displayed in the end of the game.
+- **Score System** - Everytime the player catches the pellets or eat the ghosts he gets a score that is registered and displayed in the end of the game.
 - **Menus** - The user has the capability of browsing through the different menus. (Main Menu, Instructions, Play, Pause, Leaderboard).
 - **Animations** - The pacman change the side is looking depending of the direction he is moving
-- **Enemy IA ** - The ghosts follow the player to catch him and run randomly if the player catches a powerup
+- **Enemy IA** - The ghosts follow the player to catch him and run randomly if the player catches a powerup
 
 ## Design
 
