@@ -27,7 +27,7 @@ public class Game {
     private int width, height;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        Game game = new Game(60, 20);
+        Game game = new Game(60, 40);
         game.run();
         //LanternaGUI lanternaGUI = new LanternaGUI();
     }
