@@ -21,10 +21,11 @@ public class Player {
         this.position = position;
     }
 
-
     public void draw(TextGraphics screen){
         screen.setForegroundColor(TextColor.ANSI.YELLOW);
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(position.getX(), position.getY()), "C");
     }
+
+
 }

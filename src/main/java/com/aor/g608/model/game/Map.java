@@ -55,8 +55,15 @@ public class Map implements GhostDatabase{
         return false;
     }
 
+    public boolean canPlayerMove(Position position) {
+        return (position.getX() >= 0 && position.getX() < width) &&
+                (position.getY() >= 0 && position.getY() < height) &&
+                !walls.contains(new Wall(position.getX(), position.getY()));
+    }
+
+
     public void movePlayer(Position position){
-        player.setPosition(position);
+        if(canPlayerMove(position)) player.setPosition(position);
     }
 
 
