@@ -33,7 +33,7 @@ public class Map implements GhostDatabase{
 
 
     public Map(int width, int height) {
-        player = new Player(10, 10);
+        player = new Player(15, 15);
         this.height = height;
         this.width = width;
         walls = createWalls();
@@ -106,16 +106,11 @@ public class Map implements GhostDatabase{
         walls.add(wall);
     }
 
-    public void removeWall(Wall wall){
-        walls.remove(wall);
-    }
-
 
     private List<Wall> createWalls() throws ArrayIndexOutOfBoundsException{
-        List<Wall> walls = new ArrayList<>();
 
         char[][] map = {
-                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
                 {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
                 {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
                 {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
@@ -146,29 +141,16 @@ public class Map implements GhostDatabase{
                 {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
                 {'#','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','#',},
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}
-        };
+        };      //31
+
+        List<Wall> walls = new ArrayList<>();
 
         for(int i = 0; i < map.length; i++) {
-            for(int j = 0; j < map[i].length; j++) {
+            for(int j = 0; j < map[j].length; j++) {
                 if(map[i][j] == '#')
-                    walls.add(new Wall(i,j));
+                    walls.add(new Wall(j,i));
             }
         }
-
-
-
-
-/*
-        for(int c=0; c < width; c++){
-            walls.add(new Wall(c, 0));
-            walls.add(new Wall(c, height-1));
-        }
-
-        for(int r=0; r < height; r++){
-            walls.add(new Wall(0, r));
-            walls.add(new Wall(width-1, r));
-        }
-*/
         return walls;
     }
 
@@ -182,8 +164,6 @@ public class Map implements GhostDatabase{
         }
         return ghosts;
     }
-
-
 
     @Override
     public List<Ghost> getAllGhosts() {
