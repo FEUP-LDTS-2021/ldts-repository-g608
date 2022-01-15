@@ -1,5 +1,6 @@
 package com.aor.g608.model.game;
 
+import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -8,7 +9,9 @@ import com.aor.g608.Element;
 
 public class Pellet extends Element{
 
-    public Pellet(int x, int y) {super(x,y);}
+    public Pellet(Position position, String color) {
+        super(position, color);
+    }
 
         @Override
         public void draw(TextGraphics screen) {

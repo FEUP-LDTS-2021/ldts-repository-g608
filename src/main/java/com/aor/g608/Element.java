@@ -6,9 +6,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {
     public Position position;
+    public String color;
 
-    public Element(int x, int y){
-        position = new Position(x,y);
+    public Element(Position position, String color){
+        this.position = position;
+        this.color = color;
     }
 
     public Position getPosition() {
@@ -17,6 +19,14 @@ public abstract class Element {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public abstract void draw(TextGraphics screen);

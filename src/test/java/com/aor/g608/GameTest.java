@@ -12,7 +12,7 @@ public class GameTest {
 
     @Test
     public void DimensionTest() throws IOException {
-        Game game = new Game(40, 20);
+        Game game = new Game(40, 20, 30);
         assertEquals(40, game.getWidth());
         game.setHeight(60);
         assertEquals(60, game.getHeight());

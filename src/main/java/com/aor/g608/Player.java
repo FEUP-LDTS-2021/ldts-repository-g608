@@ -6,11 +6,11 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Player {
+public class Player extends Element{
     private Position position;
 
-    public Player(int x, int y) {
-        position = new Position(x, y);
+    public Player(Position position, String color) {
+        super(position, color);
     }
 
     public Position getPosition() {

@@ -1,4 +1,10 @@
 package com.aor.g608.state;
 
-public class State {
+import java.io.IOException;
+
+public abstract class State {
+
+    public void changeState(State state) {}
+    public abstract void draw() throws IOException;
+
 }

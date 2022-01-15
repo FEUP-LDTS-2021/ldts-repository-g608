@@ -33,11 +33,12 @@ public class Map implements GhostDatabase{
 
 
     public Map(int width, int height) {
-        player = new Player(10, 10);
+        Position position = new Position(10, 10);
+        player = new Player(position, "yellow"); // it doesn't mean will exactly be "yellow", but instead the color's code
         this.height = height;
         this.width = width;
-        walls = createWalls();
-        ghosts = createGhosts();
+        //walls = createWalls(); will be overwritten by Andre's code
+        // ghosts = createGhosts(); need to fix createGhosts() 1st
 
     }
 
@@ -103,7 +104,8 @@ public class Map implements GhostDatabase{
         walls.remove(wall);
     }
 
-
+    /*
+    * This will be overwritten by André's code
     private List<Wall> createWalls(){
         List<Wall> walls = new ArrayList<>();
 
@@ -119,7 +121,10 @@ public class Map implements GhostDatabase{
 
         return walls;
     }
+    */
 
+    /*
+    * This method needs to fixed
     private List<Ghost> createGhosts() {
         Random random = new Random();
         ArrayList<Ghost> ghosts = new ArrayList<>();
@@ -130,7 +135,7 @@ public class Map implements GhostDatabase{
         }
         return ghosts;
     }
-
+    */
 
 
     @Override

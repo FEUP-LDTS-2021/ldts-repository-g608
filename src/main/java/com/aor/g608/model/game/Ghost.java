@@ -17,9 +17,8 @@ public class Ghost extends Element{
     private String color;
     enum colors {RED, CYAN, ORANGE, PINK}
 
-    public Ghost(int x, int y, String color) {
-        super(x, y);
-        this.color = color;
+    public Ghost(Position position, String color) {
+        super(position, color);
     }
 
     public String getColor() {

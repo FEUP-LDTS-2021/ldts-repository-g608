@@ -1,6 +1,7 @@
 package com.aor.g608.model.game;
 
 import com.aor.g608.Element;
+import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
@@ -8,8 +9,8 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall extends Element {
 
-    public Wall(int x, int y){
-        super(x,y);
+    public Wall(Position position, String color){
+        super(position, color);
     }
 
     public void draw(TextGraphics screen){

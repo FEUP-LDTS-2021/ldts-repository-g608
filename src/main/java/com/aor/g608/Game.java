@@ -24,12 +24,10 @@ public class Game {
     private Player player;
     private LanternaGUI lanternaGUI;
     private MenuPlayer menuPlayer;
-    private int width, height;
+    private int width, height, fps;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        Game game = new Game(60, 20);
-        game.run();
-        //LanternaGUI lanternaGUI = new LanternaGUI();
+        LanternaGUI lanternaGUI = new LanternaGUI();
     }
 
     public void setWidth(int width) {
@@ -48,9 +46,10 @@ public class Game {
         return height;
     }
 
-    public Game(int width, int height) throws IOException {
+    public Game(int width, int height, int fps) throws IOException {
             this.width = width;
             this.height = height;
+            this.fps = fps;
             TerminalSize terminalSize = new TerminalSize(width, height);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
