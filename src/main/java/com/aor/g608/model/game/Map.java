@@ -167,7 +167,7 @@ public class Map implements GhostDatabase{
     public boolean canGhostMove(Position position) {
         boolean b = true;
         for(Wall wall: walls) {
-            if(wall.getPosition().equals(position)) {
+            if(position.equals(wall.getPosition())) {
                 b = false;
             }
         }
@@ -175,14 +175,23 @@ public class Map implements GhostDatabase{
     }
 
 
+
+
+
+
+
     public void moveGhosts() {
         for(Ghost ghost : ghosts) {
-            if(canGhostMove(ghost.getPosition()))
             ghost.setPosition(ghost.move(this));
         }
     }
 
-   // public boolean checkGhostCollision() { }
+   public boolean checkGhostEatsPlayer() {
+        for(Ghost ghost : ghosts) {
+            if(ghost.getPosition().equals(player.getPosition())) return true;
+        }
+        return false;
+   }
 
     @Override
     public List<Ghost> getAllGhosts() {

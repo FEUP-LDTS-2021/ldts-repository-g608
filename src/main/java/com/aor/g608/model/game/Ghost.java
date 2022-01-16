@@ -56,7 +56,7 @@ public class Ghost extends Element {
         while(true) {
             Position p = new Position(this.getPosition().getX() + random.nextInt(3) - 1,
                     this.getPosition().getY() + random.nextInt(3) - 1);
-                return p;
+            if(map.canGhostMove(p)) return p;
+                }
             }
-        }
     }

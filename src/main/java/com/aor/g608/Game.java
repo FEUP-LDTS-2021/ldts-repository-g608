@@ -77,10 +77,12 @@ public class Game {
                     KeyStroke userInput = screen.readInput();
                     processKey(userInput);
 
-
                     if (userInput.getKeyType() == KeyType.EOF)
                         break;
+
                     map.moveGhosts();
+
+                    if(map.checkGhostEatsPlayer()) {screen.close(); break;}
                 }
             } catch (IOException e){
                 e.printStackTrace();
