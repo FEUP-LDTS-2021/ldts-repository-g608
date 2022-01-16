@@ -1,6 +1,7 @@
 package com.aor.g608.model.menu;
 
 import com.aor.g608.Element;
+import com.aor.g608.command.ButtonCommand;
 import com.aor.g608.command.Command;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.Position;
@@ -18,8 +19,10 @@ public class Button extends Element implements GUI{
     private int width;
     private int height;
     private Command command;
+    private boolean active;
     private String text;
     private Position textPosition;
+    private ButtonCommand action;
 
     private List<String> colors;
 
@@ -28,7 +31,7 @@ public class Button extends Element implements GUI{
         this.text = text;
         this.textPosition = position;
         this.colors = colors;
-
+        this.active = false;
     }
 
     public Button(Position position, String text, Command command, String color){
@@ -70,6 +73,18 @@ public class Button extends Element implements GUI{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setAction(ButtonCommand action) {
+        this.action = action;
     }
     
     /*

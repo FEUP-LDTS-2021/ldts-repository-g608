@@ -79,14 +79,17 @@ public class Game {
     private void draw() throws IOException, FontFormatException {
         lanternaGUI.clear();
         lanternaGUI.createTextGraphics();
+
         Position playPosition = new Position(11, 10);
         Position instructionsPosition = new Position(7, 13);
-        Position exitPosition = new Position(11, 16);
+        Position leaderboardPosition = new Position(7, 16);
+        Position exitPosition = new Position(11, 19);
 
 
-        lanternaGUI.drawTitle(playPosition,"play", "#000000", "#FFFFFF");
-        lanternaGUI.drawTitle(instructionsPosition,"instructions", "#000000", "#FFFFFF");
-        lanternaGUI.drawTitle(exitPosition,"exit", "#000000", "#FFFFFF");
+        lanternaGUI.drawTitle(playPosition,"play", "#000000", "#FFFF00");
+        lanternaGUI.drawTitle(instructionsPosition,"instructions", "#000000", "#FFFF00");
+        lanternaGUI.drawTitle(leaderboardPosition,"leaderboard", "#000000", "#FFFF00");
+        lanternaGUI.drawTitle(exitPosition,"exit", "#000000", "#FFFF00");
         //menuPlayer.draw(screen.newTextGraphics());
         //map.draw(screen.newTextGraphics());
         lanternaGUI.refresh();
