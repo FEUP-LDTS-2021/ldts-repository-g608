@@ -14,5 +14,4 @@ public class PlayerTest {
         assertEquals(5, player.getPosition().getX());
 
     }
-
 }

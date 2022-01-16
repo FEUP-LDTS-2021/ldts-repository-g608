@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Ghost extends Element implements GUI {
-    enum colors {RED, CYAN, ORANGE, PINK}
 
     public Ghost(Position position, String color) {
         super(position, color);
@@ -26,20 +25,26 @@ public class Ghost extends Element implements GUI {
 
     @Override
     public void draw(TextGraphics screen) {
-        screen.setForegroundColor(TextColor.Factory.fromString("#339933"));
-        screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "m");
-    }
-
-    public Position move(Map map){
-        Random random = new Random();
-        while(true) {
-            Position ret = new Position(this.getPosition().getX() + random.nextInt(3) - 1,
-                    this.getPosition().getY() + random.nextInt(3) - 1);
-            if(ret.getX() > 0 && ret.getX() < map.getWidth()-1 &&
-                    ret.getY() > 0 && ret.getY() < map.getHeight()-1)
-                return ret;
+        if(getColor() == "red"){
+            screen.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            screen.enableModifiers(SGR.BOLD);
+            screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "R");
         }
-    }
+        if(getColor() == "cyan"){
+            screen.setForegroundColor(TextColor.Factory.fromString("#00FFFF"));
+            screen.enableModifiers(SGR.BOLD);
+            screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "C");
+        }
+        if(getColor() == "orange"){
+            screen.setForegroundColor(TextColor.Factory.fromString("#FFA500"));
+            screen.enableModifiers(SGR.BOLD);
+            screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "O");
+        }
+        if(getColor() == "pink"){
+            screen.setForegroundColor(TextColor.Factory.fromString("#FFC0CB"));
+            screen.enableModifiers(SGR.BOLD);
+            screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "P");
+        }
 
-}
+    }
+    }

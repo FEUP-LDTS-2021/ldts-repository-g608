@@ -1,10 +1,12 @@
 package com.aor.g608;
 
 import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Pellet;
 import com.github.javaparser.utils.Pair;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {
+
     public Position position;
     public String color;
 
@@ -28,5 +30,6 @@ public abstract class Element {
     public void setColor(String color) {
         this.color = color;
     }
+    public abstract void draw(TextGraphics screen);
 
 }

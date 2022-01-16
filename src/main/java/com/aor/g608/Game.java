@@ -18,18 +18,16 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import com.googlecode.lanterna.TerminalSize;
 
-
 import java.awt.*;
 import java.io.IOException;
 
-
 public class Game {
     private Map map;
-    private Player player;
     private LanternaGUI lanternaGUI;
     private MenuPlayer menuPlayer;
     private int width, height, fps;
-    private boolean exit ;
+    private boolean exit;
+    private Screen screen;
     private GUI gui;
     private State state;
     private KeyBoardObserver keyBoardObserver;
@@ -62,24 +60,25 @@ public class Game {
             this.height = height;
             this.fps = fps;
             this.state = new MenuState(this, gui);
-            this.lanternaGUI = new LanternaGUI(width, height);
+            //this.lanternaGUI = new LanternaGUI(width, height);
             this.exit = false;
 
-            //TerminalSize terminalSize = new TerminalSize(width, height);
-            //DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            //Terminal terminal = terminalFactory.createTerminal();
-            //screen = new TerminalScreen(terminal);
-            //screen.setCursorPosition(null);
-            //screen.startScreen();
-            //screen.doResizeIfNecessary();
+            TerminalSize terminalSize = new TerminalSize(width, height);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);
+            screen.startScreen();
+            screen.doResizeIfNecessary();
             //menuPlayer = new MenuPlayer();
-            //map = new Map(width, height);
+            map = new Map(width, height);
         }
 
     private void draw() throws IOException, FontFormatException {
-        lanternaGUI.clear();
-        lanternaGUI.createTextGraphics();
-
+        //lanternaGUI.clear();
+        //lanternaGUI.createTextGraphics();
+        //map.draw(lanternaGUI.getScreen().newTextGraphics());
+        /*
         Position playPosition = new Position(11, 10);
         Position instructionsPosition = new Position(7, 13);
         Position leaderboardPosition = new Position(7, 16);
@@ -91,8 +90,13 @@ public class Game {
         lanternaGUI.drawTitle(leaderboardPosition,"leaderboard", "#000000", "#FFFF00");
         lanternaGUI.drawTitle(exitPosition,"exit", "#000000", "#FFFF00");
         //menuPlayer.draw(screen.newTextGraphics());
-        //map.draw(screen.newTextGraphics());
+        map.draw(screen.newTextGraphics());
         lanternaGUI.refresh();
+
+         */
+        screen.clear();
+        map.draw(screen.newTextGraphics());
+        screen.refresh();
     }
 
     public void run() throws IOException {
@@ -102,14 +106,16 @@ public class Game {
         try{
                 while(!exit){
                     draw();
-                    KeyStroke userInput = lanternaGUI.getScreen().readInput();
+                    KeyStroke userInput = screen.readInput();
 
                     processKey(userInput);
 
                     if (userInput.getKeyType() == KeyType.EOF)
                         break;
 
+                    map.moveGhosts();
 
+                    if(map.checkGhostEatsPlayer()) {screen.close(); break;}
                 }
             } catch (IOException | FontFormatException e){
                 e.printStackTrace();
