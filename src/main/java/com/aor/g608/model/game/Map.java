@@ -105,7 +105,7 @@ public class Map implements GhostDatabase{
     }
 
 
-    private List<Wall> createWalls() throws ArrayIndexOutOfBoundsException{
+    private List<Wall> createWalls() {
 
         char[][] map = {
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
