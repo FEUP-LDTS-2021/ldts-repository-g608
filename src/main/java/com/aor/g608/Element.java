@@ -1,6 +1,7 @@
 package com.aor.g608;
 
 import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Pellet;
 import com.github.javaparser.utils.Pair;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -21,4 +22,5 @@ public abstract class Element {
     }
 
     public abstract void draw(TextGraphics screen);
+
 }

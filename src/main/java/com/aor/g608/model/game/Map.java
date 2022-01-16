@@ -10,7 +10,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Map implements GhostDatabase{
     private int height;
@@ -18,6 +17,7 @@ public class Map implements GhostDatabase{
     private GhostDatabase database;
     private List<Wall> walls;
     private List<Ghost> ghosts;
+    private List<Pellet> pellets;
     private Player player;
 
     public int getHeight() {
@@ -36,6 +36,7 @@ public class Map implements GhostDatabase{
 
         walls = createWalls();
         ghosts = createGhosts();
+        pellets = createPellets();
 
     }
 
@@ -61,7 +62,10 @@ public class Map implements GhostDatabase{
 
 
     public void movePlayer(Position position){
-        if(canPlayerMove(position)) player.setPosition(position);
+        if(canPlayerMove(position)){
+            player.setPosition(position);
+            retrievePellets();
+        }
         else System.out.println("not moving there");
     }
 
@@ -87,6 +91,9 @@ public class Map implements GhostDatabase{
         screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         screen.enableModifiers(SGR.BOLD);
 
+        for(Pellet pellet : pellets)
+            pellet.draw(screen);
+
         player.draw(screen);
 
         for(Wall wall : walls)
@@ -94,6 +101,7 @@ public class Map implements GhostDatabase{
 
         for(Ghost ghost : ghosts)
             ghost.draw(screen);
+
     }
 
     public List<Wall> getWalls() {
@@ -105,7 +113,7 @@ public class Map implements GhostDatabase{
     }
 
 
-    private List<Wall> createWalls() throws ArrayIndexOutOfBoundsException{
+    private List<Wall> createWalls() {
 
         char[][] map = {
                 {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
@@ -150,6 +158,54 @@ public class Map implements GhostDatabase{
             }
         }
         return walls;
+    }
+
+    private List<Pellet> createPellets() {
+
+
+        char[][] map = {
+                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
+                {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+                {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
+                {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
+                {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
+                {'#','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+                {'#','p','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','p','#',},
+                {'#','p','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','p','#',},
+                {'#','p','p','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','p','p','#',},
+                {'#','#','#','#','#','#','p','#','#','#','#','#',' ','#','#',' ','#','#','#','#','#','p','#','#','#','#','#','#',},
+                {' ',' ',' ',' ',' ','#','p','#','#','#','#','#',' ','#','#',' ','#','#','#','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
+                {'#','#','#','#','#','#','p','#','#',' ','#','#','#','#','#','#','#','#',' ','#','#','p','#','#','#','#','#','#',},
+                {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+                {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
+                {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
+                {'#','p','p','p','#','#','p','p','p','p','p','p','p',' ',' ','p','p','p','p','p','p','p','#','#','p','p','p','#',},
+                {'#','#','#','p','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','p','#','#','#',},
+                {'#','#','#','p','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','p','#','#','#',},
+                {'#','p','p','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','p','p','#',},
+                {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
+                {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
+                {'#','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+                {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}
+        };      //31
+
+        List<Pellet> pellets = new ArrayList<>();
+
+        for(int i = 0; i < map.length; i++) {
+            for(int j = 0; j < map[j].length; j++) {
+                if(map[i][j] == 'p')
+                    pellets.add(new Pellet(j,i));
+            }
+        }
+        return pellets;
     }
 
     private List<Ghost> createGhosts() {
@@ -220,8 +276,19 @@ public class Map implements GhostDatabase{
         return false;
    }
 
+    //player gets pellets [still a work in progress]
+    private void retrievePellets() {
+        for (Pellet pellet : pellets)
+            if (player.getPosition().equals(pellet.getPosition())) {
+                pellets.remove(pellet);
+                break;
+            }
+    }
+
+
     @Override
     public List<Ghost> getAllGhosts() {
         return ghosts;
     }
+
 }
