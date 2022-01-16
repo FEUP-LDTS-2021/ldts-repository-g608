@@ -13,10 +13,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import com.googlecode.lanterna.TerminalSize;
 
-
 import java.awt.*;
 import java.io.IOException;
-
 
 public class Game {
     private Screen screen;
