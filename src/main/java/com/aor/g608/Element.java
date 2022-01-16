@@ -29,5 +29,4 @@ public abstract class Element {
         this.color = color;
     }
 
-    public abstract void draw(TextGraphics screen);
 }

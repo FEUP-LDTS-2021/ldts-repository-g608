@@ -15,9 +15,9 @@ public class MenuViewer extends StateViewer{
     }
     @Override
     public void draw() throws IOException {
-        gui.clear();
-        drawBackground("#000000");
+        //gui.clear();
+        //drawBackground("#000000");
         drawButtons(buttons, new ButtonViewer());
-        gui.refresh();
+        //gui.refresh();
     }
 }

@@ -6,11 +6,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 
 public interface GUI {
-    enum COLORS {
-        PINK,
-        ORANGE,
-        RED,
-        CYAN
+    void draw(TextGraphics screen);
+    /*
+    enum ACTION {
+        ENTER,
+        EXIT
     }
 
     TextGraphics createTextGraphics();
@@ -23,8 +23,9 @@ public interface GUI {
     void refresh() throws IOException;
 
     void close() throws IOException;
+    */
 
-
+    /*
     void drawBackground(TextGraphics textGraphics, String color);
 
     void drawRectangle(TextGraphics textGraphics, String color, int width, int height, Position position);
@@ -40,4 +41,5 @@ public interface GUI {
     void drawPellet(Position position, String color);
 
     void drawTitle(Position position, String text, String color, String colorText);
+    */
 }

@@ -26,11 +26,12 @@ public class MenuPlayer  {
 
     private Button button;
 
+    /*
     public void ngButton() {
         JButton btnNewGame = new JButton("New Game");
         button.styleButton(btnNewGame, 76, 456, 231, 65, 24);
     }
-
+    */
 
 
     public MenuPlayer() throws IOException {

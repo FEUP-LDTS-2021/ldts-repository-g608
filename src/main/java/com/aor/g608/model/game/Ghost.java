@@ -1,6 +1,7 @@
 package com.aor.g608.model.game;
 
 import com.aor.g608.Element;
+import com.aor.g608.gui.GUI;
 import com.aor.g608.model.Position;
 import com.github.javaparser.utils.Pair;
 import com.googlecode.lanterna.SGR;
@@ -12,9 +13,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.List;
 import java.util.Random;
 
-public class Ghost extends Element{
-    private int x, y;
-    private String color;
+public class Ghost extends Element implements GUI {
     enum colors {RED, CYAN, ORANGE, PINK}
 
     public Ghost(Position position, String color) {

@@ -1,17 +1,23 @@
 package com.aor.g608.model.menu;
 
 import com.aor.g608.Element;
+import com.aor.g608.command.Command;
+import com.aor.g608.gui.GUI;
 import com.aor.g608.model.Position;
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class Button extends Element{
+public class Button extends Element implements GUI{
     private String color;
     private int width;
     private int height;
+    private Command command;
     private String text;
     private Position textPosition;
 
@@ -25,6 +31,22 @@ public class Button extends Element{
 
     }
 
+    public Button(Position position, String text, Command command, String color){
+        super(position, color);
+        this.command = command;
+        this.position = position;
+        this.text = text;
+        this.color = color;
+    }
+
+
+    @Override
+    public void draw(TextGraphics screen) {
+        screen.setForegroundColor(TextColor.Factory.fromString(color));
+        screen.enableModifiers(SGR.BOLD);
+        screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), text);
+    }
+
     public String Color() {
         return color;
     }
@@ -33,10 +55,6 @@ public class Button extends Element{
         return textPosition;
     }
 
-    @Override
-    public void draw(TextGraphics screen) {
-
-    }
 
     public int getWidth() {
         return width;
@@ -54,11 +72,12 @@ public class Button extends Element{
         this.text = text;
     }
     
-
+    /*
     public void styleButton(JButton btn, int x1, int x2, int x3, int x4, int size){
         btn.setFont(new Font("Cooper Black", Font.PLAIN, size));
         btn.setForeground(Color.WHITE);
         btn.setBackground(new Color(51, 51, 0));
         btn.setBounds(x1, x2, x3, x4);
     }
+     */
 }

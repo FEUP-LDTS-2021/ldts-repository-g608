@@ -1,8 +1,12 @@
 package com.aor.g608;
 
+import com.aor.g608.gui.GUI;
+import com.aor.g608.gui.KeyBoardObserver;
 import com.aor.g608.gui.LanternaGUI;
 import com.aor.g608.model.game.Map;
 import com.aor.g608.model.menu.MenuPlayer;
+import com.aor.g608.state.MenuState;
+import com.aor.g608.state.State;
 import com.aor.g608.viewer.game.MusicPlayer;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -19,16 +23,21 @@ import java.io.IOException;
 
 
 public class Game {
-    private Screen screen;
     private Map map;
     private Player player;
     private LanternaGUI lanternaGUI;
     private MenuPlayer menuPlayer;
     private int width, height, fps;
+    private GUI gui;
+    private State state;
+    private KeyBoardObserver keyBoardObserver;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        LanternaGUI lanternaGUI = new LanternaGUI();
+        Game game = new Game(60, 30, 30);
+        game.run();
     }
+
+
 
     public void setWidth(int width) {
         this.width = width;
@@ -46,35 +55,39 @@ public class Game {
         return height;
     }
 
-    public Game(int width, int height, int fps) throws IOException {
+    public Game(int width, int height, int fps) throws IOException, FontFormatException {
             this.width = width;
             this.height = height;
             this.fps = fps;
-            TerminalSize terminalSize = new TerminalSize(width, height);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
-            menuPlayer = new MenuPlayer();
-            map = new Map(width, height);
+            this.lanternaGUI = new LanternaGUI(width, height);
+
+            //TerminalSize terminalSize = new TerminalSize(width, height);
+            //DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            //Terminal terminal = terminalFactory.createTerminal();
+            //screen = new TerminalScreen(terminal);
+            //screen.setCursorPosition(null);
+            //screen.startScreen();
+            //screen.doResizeIfNecessary();
+            //menuPlayer = new MenuPlayer();
+            //map = new Map(width, height);
         }
 
-        private void draw() throws IOException {
-            screen.clear();
+        private void draw() throws IOException, FontFormatException {
+            lanternaGUI.clear();
+            lanternaGUI.createTextGraphics();
             //menuPlayer.draw(screen.newTextGraphics());
-            map.draw(screen.newTextGraphics());
-            screen.refresh();
+            //map.draw(screen.newTextGraphics());
+            lanternaGUI.refresh();
         }
 
-        public void run() throws IOException {
+    public void run() throws IOException {
         MusicPlayer musicPlayer = new MusicPlayer();
         musicPlayer.startMusic();
+
         try{
                 while(true){
                     draw();
-                    KeyStroke userInput = screen.readInput();
+                    KeyStroke userInput = lanternaGUI.getScreen().readInput();
 
                     processKey(userInput);
 
@@ -83,7 +96,7 @@ public class Game {
 
 
                 }
-            } catch (IOException e){
+            } catch (IOException | FontFormatException e){
                 e.printStackTrace();
             }
         }

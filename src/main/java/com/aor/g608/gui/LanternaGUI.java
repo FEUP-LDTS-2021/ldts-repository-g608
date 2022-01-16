@@ -17,17 +17,18 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class LanternaGUI implements GUI{
+public class LanternaGUI {
     private TerminalScreen screen;
     private int width;
     private int height;
 
 
-    public LanternaGUI() throws IOException, FontFormatException {
+    public LanternaGUI(int width, int height) throws IOException, FontFormatException {
+        this.height = height;
+        this.width = width;
         AWTTerminalFontConfiguration fontConfiguration = loadOverkillFont();
-        Terminal terminal = createTerminal(20, 60, fontConfiguration);
+        Terminal terminal = createTerminal(width, height, fontConfiguration);
         this.screen = createScreen(terminal);
-
     }
 
     public Terminal createTerminal(int width, int height, AWTTerminalFontConfiguration fontConfig) throws IOException {
@@ -43,6 +44,10 @@ public class LanternaGUI implements GUI{
         return terminal;
     }
 
+    public TerminalScreen getScreen() {
+        return screen;
+    }
+
     public TerminalScreen createScreen(Terminal terminal) throws IOException {
         final TerminalScreen terminalScreen;
         terminalScreen = new TerminalScreen(terminal);
@@ -53,8 +58,9 @@ public class LanternaGUI implements GUI{
         return terminalScreen;
     }
 
+
     public AWTTerminalFontConfiguration loadOverkillFont() throws FontFormatException, IOException{
-        File fontFile = new File("src/main/resources/fonts/PAC-FONT.TTF");
+        File fontFile = new File("src/main/resources/fonts/square.TTF");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -65,75 +71,65 @@ public class LanternaGUI implements GUI{
     }
 
 
-    @Override
     public TextGraphics createTextGraphics() {
-        return null;
+        return screen.newTextGraphics();
     }
 
-    @Override
+
     public int getWidth() {
         return width;
     }
 
-    @Override
     public int getHeight() {
         return height;
     }
 
-    @Override
     public void clear() throws IOException {
         screen.clear();
     }
 
-    @Override
     public void refresh() throws IOException {
         screen.refresh();
     }
 
-    @Override
     public void close() throws IOException {
         screen.close();
     }
 
-    @Override
     public void drawBackground(TextGraphics textGraphics, String color) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
         textGraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(this.width, this.height), ' ');
 
     }
 
-    @Override
     public void drawRectangle(TextGraphics textGraphics, String color, int width, int height, Position position) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
         textGraphics.fillRectangle(new TerminalPosition(position.getX(), position.getY()), new TerminalSize(width, height), ' ');
     }
 
-    @Override
-    public void drawButton(Position position, String text, String textColor, int width, int height) {
 
+    public void drawButton(Position position, String text, String textColor, int width, int height) {
+        TextGraphics textGraphics = screen.newTextGraphics();
+        drawText(textGraphics, position, text, textColor);
     }
 
-    @Override
     public void drawGhosts(Position position, String colors) {
         drawText( screen.newTextGraphics() , position, "m", colors);
     }
 
-    @Override
     public void drawPacman(Position position, String color) {
-        drawText( screen.newTextGraphics() , position, "m", color);
+        drawText( screen.newTextGraphics() , position, "c", color);
     }
 
-    @Override
     public void drawWall(Position position, String color) {
 
     }
 
-    @Override
+
     public void drawPellet(Position position, String color) {
 
     }
 
-    @Override
     public void drawTitle(Position position, String text, String color, String colorText) {
         TextGraphics textGraphics = screen.newTextGraphics();
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));

@@ -20,9 +20,12 @@ public abstract class StateViewer {
 
     public abstract void draw() throws IOException;
 
+    /*
     protected void drawBackground(String color){
         gui.drawBackground(this.textGraphics, color);
     }
+
+     */
 
     protected void drawButtons(List<Button> buttons, ElementViewer<Button> viewer){
         for (int i = buttons.size()-1; i >= 0; i--) {
