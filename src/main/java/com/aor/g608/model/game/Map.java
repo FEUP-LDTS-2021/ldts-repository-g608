@@ -1,6 +1,5 @@
 package com.aor.g608.model.game;
 
-import com.aor.g608.Player;
 import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
@@ -138,10 +137,6 @@ public class Map implements GhostDatabase{
         walls.add(wall);
     }
 
-    public void removeWall(Wall wall){
-        walls.remove(wall);
-    }
-
 
     public List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
@@ -189,8 +184,6 @@ public class Map implements GhostDatabase{
         return ghosts;
     }
 
-
-
     public boolean canGhostMove(Position position) {
         boolean b = true;
         for(Wall wall: walls) {
@@ -220,7 +213,7 @@ public class Map implements GhostDatabase{
                 x = ghost.getPosition().getX() - 1;
             }
             //check y
-            if(ghost.getPosition().getY() < player.getPosition().getY()) {
+            else if(ghost.getPosition().getY() < player.getPosition().getY()) {
                 y = ghost.getPosition().getY() + 1;
             }
             else if(ghost.getPosition().getY() > player.getPosition().getY()) {
@@ -235,7 +228,6 @@ public class Map implements GhostDatabase{
             else { //se não der pra ir para mexer andar mais uma e depois verificar
              x = ghost.getPosition().getX() - 1;
 */
-
             }
         }
 
@@ -252,7 +244,6 @@ public class Map implements GhostDatabase{
         return false;
    }
 
-    //player gets pellets [still a work in progress]
     private void retrievePellets() {
         for (Pellet pellet : pellets)
             if (player.getPosition().equals(pellet.getPosition())) {
@@ -260,7 +251,6 @@ public class Map implements GhostDatabase{
                 break;
             }
     }
-
 
     @Override
     public List<Ghost> getAllGhosts() {

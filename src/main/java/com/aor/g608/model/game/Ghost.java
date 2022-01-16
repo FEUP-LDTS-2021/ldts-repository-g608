@@ -3,15 +3,10 @@ package com.aor.g608.model.game;
 import com.aor.g608.Element;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.Position;
-import com.github.javaparser.utils.Pair;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-
-import java.util.List;
-import java.util.Random;
 
 public class Ghost extends Element implements GUI {
 

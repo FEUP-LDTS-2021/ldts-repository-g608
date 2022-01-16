@@ -21,23 +21,6 @@ public class Pellet extends Element implements GUI{
         screen.enableModifiers(SGR.BOLD);
         screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), ".");
     }
-
-/*
-        @Override
-        public boolean equals(Object o){
-        if(o == null || this.getClass() != o.getClass()) return false;
-=======
->>>>>>> origin/testingwalls
-
-    @Override
-    public boolean equals(Object o){
-        if(o == null || this.getClass() != o.getClass()) return false;
-        return(this == o || this.getPosition().equals(((Pellet) o).getPosition()));
-
-    }
-<<<<<<< HEAD
-*/
-
 }
 
 

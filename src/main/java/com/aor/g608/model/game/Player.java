@@ -1,5 +1,6 @@
-package com.aor.g608;
+package com.aor.g608.model.game;
 
+import com.aor.g608.Element;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
