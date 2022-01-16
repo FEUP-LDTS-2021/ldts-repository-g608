@@ -5,6 +5,7 @@ import com.github.javaparser.utils.Pair;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public abstract class Element {
+
     public Position position;
 
     public Element(int x, int y){

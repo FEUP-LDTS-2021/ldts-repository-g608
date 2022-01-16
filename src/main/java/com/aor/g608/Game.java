@@ -21,7 +21,6 @@ import java.io.IOException;
 public class Game {
     private Screen screen;
     private Map map;
-    private Player player;
     private LanternaGUI lanternaGUI;
     private MenuPlayer menuPlayer;
     private int width, height;
@@ -76,13 +75,12 @@ public class Game {
                 while(true){
                     draw();
                     KeyStroke userInput = screen.readInput();
-
                     processKey(userInput);
+
 
                     if (userInput.getKeyType() == KeyType.EOF)
                         break;
-
-
+                    map.moveGhosts();
                 }
             } catch (IOException e){
                 e.printStackTrace();

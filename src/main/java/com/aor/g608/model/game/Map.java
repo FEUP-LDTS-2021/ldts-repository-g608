@@ -16,11 +16,8 @@ public class Map implements GhostDatabase{
     private int height;
     private int width;
     private GhostDatabase database;
-
-
     private List<Wall> walls;
     private List<Ghost> ghosts;
-
     private Player player;
 
     public int getHeight() {
@@ -36,6 +33,7 @@ public class Map implements GhostDatabase{
         player = new Player(15, 15);
         this.height = height;
         this.width = width;
+
         walls = createWalls();
         ghosts = createGhosts();
 
@@ -65,7 +63,6 @@ public class Map implements GhostDatabase{
     public void movePlayer(Position position){
         if(canPlayerMove(position)) player.setPosition(position);
     }
-
 
     public Position moveUp() {
         return new Position(player.getPosition().getX(), player.getPosition().getY() - 1);
@@ -155,15 +152,37 @@ public class Map implements GhostDatabase{
     }
 
     private List<Ghost> createGhosts() {
-        Random random = new Random();
         ArrayList<Ghost> ghosts = new ArrayList<>();
-        for(int i=0; i<4; i++){
-            Ghost newGhost = new Ghost(random.nextInt(width-2) + 1, random.nextInt(height-2)+1, "Yellow");
-            if(!ghosts.contains(newGhost) && !newGhost.getPosition().equals(player.getPosition()))
-                ghosts.add(newGhost);
-        }
+        Ghost red = new Ghost(10,16,"red");
+        ghosts.add(red);
+        Ghost cyan = new Ghost(12,16,"cyan");
+        ghosts.add(cyan);
+        Ghost orange = new Ghost(14,16,"orange");
+        ghosts.add(orange);
+        Ghost pink = new Ghost(16,16,"pink");
+        ghosts.add(pink);
         return ghosts;
     }
+
+    public boolean canGhostMove(Position position) {
+        boolean b = true;
+        for(Wall wall: walls) {
+            if(wall.getPosition().equals(position)) {
+                b = false;
+            }
+        }
+        return b;
+    }
+
+
+    public void moveGhosts() {
+        for(Ghost ghost : ghosts) {
+            if(canGhostMove(ghost.getPosition()))
+            ghost.setPosition(ghost.move(this));
+        }
+    }
+
+   // public boolean checkGhostCollision() { }
 
     @Override
     public List<Ghost> getAllGhosts() {
