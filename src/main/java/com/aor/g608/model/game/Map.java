@@ -30,7 +30,7 @@ public class Map implements GhostDatabase{
 
 
     public Map(int width, int height) {
-        player = new Player(15, 15);
+        player = new Player(12, 21);
         this.height = height;
         this.width = width;
 
@@ -62,6 +62,7 @@ public class Map implements GhostDatabase{
 
     public void movePlayer(Position position){
         if(canPlayerMove(position)) player.setPosition(position);
+        else System.out.println("not moving there");
     }
 
     public Position moveUp() {
@@ -153,13 +154,13 @@ public class Map implements GhostDatabase{
 
     private List<Ghost> createGhosts() {
         ArrayList<Ghost> ghosts = new ArrayList<>();
-        Ghost red = new Ghost(10,16,"red");
+        Ghost red = new Ghost(10,14,"red");
         ghosts.add(red);
         Ghost cyan = new Ghost(12,16,"cyan");
         ghosts.add(cyan);
-        Ghost orange = new Ghost(14,16,"orange");
+        Ghost orange = new Ghost(14,18,"orange");
         ghosts.add(orange);
-        Ghost pink = new Ghost(16,16,"pink");
+        Ghost pink = new Ghost(16,20,"pink");
         ghosts.add(pink);
         return ghosts;
     }
@@ -170,19 +171,45 @@ public class Map implements GhostDatabase{
             if(position.equals(wall.getPosition())) {
                 b = false;
             }
+            for(Ghost ghost : ghosts) {
+                if(position.equals(ghost.getPosition())) {
+                    b = false;
+                }
+            }
         }
         return b;
     }
 
+    public Position moveGhost(Ghost ghost) {
+        Position p;
+        int x = ghost.getPosition().getX();
+        int y = ghost.getPosition().getY();
 
+        while(true) {
+            //check x
+            if(ghost.getPosition().getX() < player.getPosition().getX()) {
+                x = ghost.getPosition().getX() + 1;
+            }
+            else if(ghost.getPosition().getX() > player.getPosition().getX()) {
+                x = ghost.getPosition().getX() - 1;
+            }
+            //check y
+            if(ghost.getPosition().getY() < player.getPosition().getY()) {
+                y = ghost.getPosition().getY() + 1;
+            }
+            else if(ghost.getPosition().getY() > player.getPosition().getY()) {
+                y = ghost.getPosition().getY() - 1;
+            }
 
-
-
-
+            p = new Position(x,y);
+            if(this.canGhostMove(p)) return p;
+            else return ghost.getPosition();
+        }
+    }
 
     public void moveGhosts() {
         for(Ghost ghost : ghosts) {
-            ghost.setPosition(ghost.move(this));
+            ghost.setPosition(moveGhost(ghost));
         }
     }
 
