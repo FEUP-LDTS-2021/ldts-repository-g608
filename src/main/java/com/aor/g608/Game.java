@@ -3,6 +3,7 @@ package com.aor.g608;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.gui.KeyBoardObserver;
 import com.aor.g608.gui.LanternaGUI;
+import com.aor.g608.model.Position;
 import com.aor.g608.model.game.Map;
 import com.aor.g608.model.menu.MenuPlayer;
 import com.aor.g608.state.MenuState;
@@ -28,12 +29,13 @@ public class Game {
     private LanternaGUI lanternaGUI;
     private MenuPlayer menuPlayer;
     private int width, height, fps;
+    private boolean exit ;
     private GUI gui;
     private State state;
     private KeyBoardObserver keyBoardObserver;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        Game game = new Game(60, 30, 30);
+        Game game = new Game(28, 31, 30);
         game.run();
     }
 
@@ -59,7 +61,9 @@ public class Game {
             this.width = width;
             this.height = height;
             this.fps = fps;
+            this.state = new MenuState(this, gui);
             this.lanternaGUI = new LanternaGUI(width, height);
+            this.exit = false;
 
             //TerminalSize terminalSize = new TerminalSize(width, height);
             //DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -72,20 +76,28 @@ public class Game {
             //map = new Map(width, height);
         }
 
-        private void draw() throws IOException, FontFormatException {
-            lanternaGUI.clear();
-            lanternaGUI.createTextGraphics();
-            //menuPlayer.draw(screen.newTextGraphics());
-            //map.draw(screen.newTextGraphics());
-            lanternaGUI.refresh();
-        }
+    private void draw() throws IOException, FontFormatException {
+        lanternaGUI.clear();
+        lanternaGUI.createTextGraphics();
+        Position playPosition = new Position(11, 10);
+        Position instructionsPosition = new Position(7, 13);
+        Position exitPosition = new Position(11, 16);
+
+
+        lanternaGUI.drawTitle(playPosition,"play", "#000000", "#FFFFFF");
+        lanternaGUI.drawTitle(instructionsPosition,"instructions", "#000000", "#FFFFFF");
+        lanternaGUI.drawTitle(exitPosition,"exit", "#000000", "#FFFFFF");
+        //menuPlayer.draw(screen.newTextGraphics());
+        //map.draw(screen.newTextGraphics());
+        lanternaGUI.refresh();
+    }
 
     public void run() throws IOException {
         MusicPlayer musicPlayer = new MusicPlayer();
         musicPlayer.startMusic();
 
         try{
-                while(true){
+                while(!exit){
                     draw();
                     KeyStroke userInput = lanternaGUI.getScreen().readInput();
 

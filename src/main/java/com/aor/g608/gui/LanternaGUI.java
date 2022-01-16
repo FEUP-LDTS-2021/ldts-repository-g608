@@ -39,8 +39,8 @@ public class LanternaGUI {
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         Terminal terminal = terminalFactory.createTerminal();
         ((AWTTerminalFrame)terminal).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/fonts/cursor.png");
-        ((AWTTerminalFrame)terminal).setCursor(Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(32, 22), "img"));
+        //Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/fonts/cursor.png");
+        //((AWTTerminalFrame)terminal).setCursor(Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(10, 10), "img"));
         return terminal;
     }
 
