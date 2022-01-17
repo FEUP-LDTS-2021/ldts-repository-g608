@@ -19,6 +19,8 @@ public class Map implements GhostDatabase{
     private List<Ghost> ghosts;
     private List<Pellet> pellets;
     private Player player;
+    private int score = 0;
+
     private char[][] map = {
             {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
             {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
@@ -127,6 +129,7 @@ public class Map implements GhostDatabase{
 
         for(Ghost ghost : ghosts)
             ghost.draw(screen);
+
 
     }
 
@@ -248,6 +251,7 @@ public class Map implements GhostDatabase{
         for (Pellet pellet : pellets)
             if (player.getPosition().equals(pellet.getPosition())) {
                 pellets.remove(pellet);
+                setScore(score + 10);
                 break;
             }
     }
@@ -257,4 +261,11 @@ public class Map implements GhostDatabase{
         return ghosts;
     }
 
+    public String getScore(){
+        return Integer.toString(score);
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }

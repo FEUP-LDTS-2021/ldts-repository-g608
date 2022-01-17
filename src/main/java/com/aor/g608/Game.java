@@ -9,6 +9,9 @@ import com.aor.g608.model.menu.MenuPlayer;
 import com.aor.g608.state.MenuState;
 import com.aor.g608.state.State;
 import com.aor.g608.viewer.game.MusicPlayer;
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -29,11 +32,12 @@ public class Game {
     private boolean exit;
     private Screen screen;
     private GUI gui;
+    private TextGraphics textGraphics;
     private State state;
     private KeyBoardObserver keyBoardObserver;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        Game game = new Game(28, 31, 30);
+        Game game = new Game(40, 42, 30);
         game.run();
     }
 
@@ -96,6 +100,11 @@ public class Game {
          */
         screen.clear();
         map.draw(screen.newTextGraphics());
+        final TextGraphics textGraphics = screen.newTextGraphics();
+        this.textGraphics = textGraphics;
+        textGraphics.putString(2, 32, "SCORE: ", SGR.BOLD);
+        textGraphics.putString( 2 + "SCORE: ".length(), 32, map.getScore(), SGR.BOLD);
+        textGraphics.setForegroundColor(TextColor.ANSI.DEFAULT);
         screen.refresh();
     }
 
