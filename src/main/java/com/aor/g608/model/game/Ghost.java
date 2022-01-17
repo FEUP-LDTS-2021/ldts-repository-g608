@@ -40,6 +40,5 @@ public class Ghost extends Element implements GUI {
             screen.enableModifiers(SGR.BOLD);
             screen.putString(new TerminalPosition(getPosition().getX(), getPosition().getY()), "P");
         }
-
     }
-    }
+}

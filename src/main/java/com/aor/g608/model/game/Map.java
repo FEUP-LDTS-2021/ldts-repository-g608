@@ -9,6 +9,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map implements GhostDatabase{
     private int height;
@@ -199,37 +200,36 @@ public class Map implements GhostDatabase{
         return b;
     }
 
+
+
+
     public Position moveGhost(Ghost ghost) {
-        Position p;
+        Position p1, p2;
         int x = ghost.getPosition().getX();
         int y = ghost.getPosition().getY();
+        int x1 = x, x2 = x, y1 = y, y2 = y;
 
         while(true) {
             //check x
-            if(ghost.getPosition().getX() < player.getPosition().getX()) {
-                x = ghost.getPosition().getX() + 1;
+            if (ghost.getPosition().getX() < player.getPosition().getX()) {
+                x1 = x + 1;
+            } else if (ghost.getPosition().getX() > player.getPosition().getX()) {
+                x1 = x - 1;
             }
-            else if(ghost.getPosition().getX() > player.getPosition().getX()) {
-                x = ghost.getPosition().getX() - 1;
-            }
+            p1 = new Position(x1, y1);
+            if (x1 != x && this.canGhostMove(p1)) return p1;
+
             //check y
-            else if(ghost.getPosition().getY() < player.getPosition().getY()) {
-                y = ghost.getPosition().getY() + 1;
+            if (ghost.getPosition().getY() < player.getPosition().getY()) {
+                y2 = y + 1;
+            } else if (ghost.getPosition().getY() > player.getPosition().getY()) {
+                y2 = y - 1;
             }
-            else if(ghost.getPosition().getY() > player.getPosition().getY()) {
-                y = ghost.getPosition().getY() - 1;
-            }
-
-            p = new Position(x,y);
-
-            if(this.canGhostMove(p)) return p;
-            else return ghost.getPosition();
-/*
-            else { //se não der pra ir para mexer andar mais uma e depois verificar
-             x = ghost.getPosition().getX() - 1;
-*/
-            }
+            p2 = new Position(x2, y2);
+            if (y2 != y && this.canGhostMove(p2)) return p2;
+            else return ghost.getPosition(); //if cant move neither stop and move on the next turn
         }
+    }
 
     public void moveGhosts() {
         for(Ghost ghost : ghosts) {
