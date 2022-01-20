@@ -3,9 +3,11 @@ package com.aor.g608.state;
 import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Map;
+import com.aor.g608.model.menu.Menu;
 import com.aor.g608.viewer.game.MapViewer;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+
 
 import java.awt.*;
 import java.io.IOException;
@@ -15,6 +17,7 @@ public class PlayState implements State{
     private Game game;
     private GUI gui;
     private Map map;
+    private Menu menu;
     private State state;
     private MapViewer mapViewer;
 
@@ -23,6 +26,7 @@ public class PlayState implements State{
         mapViewer = new MapViewer(gui, map);
         this.game = game;
         this.map = game.getMap();
+        this.menu = game.getMenu();
     }
 
     @Override
@@ -42,7 +46,7 @@ public class PlayState implements State{
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
         if(keystroke.getKeyType() == KeyType.Escape)
-            game.setState(new MenuState(game, gui));
+            game.setState(new MenuState(game, gui, menu));
 
         game.processKey(keystroke);
     }

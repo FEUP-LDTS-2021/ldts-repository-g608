@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class GameWonState implements State{
-    private int selected;
-    private Game game;
+    private final Game game;
 
     GameWonViewer gameWonViewer;
     GUI gui;
@@ -30,6 +29,8 @@ public class GameWonState implements State{
 
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
-
+        switch(keystroke.getKeyType()){
+            case Enter -> game.setState(new MenuState(game, gui, game.getMenu()));
+        }
     }
 }

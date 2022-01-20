@@ -36,4 +36,20 @@ public interface GUI {
 
     void drawArrow(Position position, String arrowColor);
 
+    void drawCurvedUpperRightWall(Position position, String color);
+
+    void drawCurvedUpperLeftWall(Position position, String color);
+
+    void drawCurvedDownLeftWall(Position position, String color);
+
+    void drawLeftVerticalWall(Position position, String color);
+
+    void drawRightVerticalWall(Position position, String color);
+
+    void drawDownHorizontalWall(Position position, String color);
+
+    void drawCurvedDownRightWall(Position position, String color);
+
+
+
 }

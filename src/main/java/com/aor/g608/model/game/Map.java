@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Map implements GhostDatabase{
 
@@ -21,10 +22,10 @@ public class Map implements GhostDatabase{
     private ArrayList<Ghost> ghosts;
     private ArrayList<PowerUp> powerUps;
     private ArrayList<Pellet> pellets;
-    private GUI gui;
+    private final GUI gui;
     private final Player player;
-    private MapViewer mapViewer;
-    private FileReader file;
+    private final MapViewer mapViewer;
+    private final FileReader file;
 
 
     private int score = 0;
@@ -58,18 +59,18 @@ public class Map implements GhostDatabase{
             }
             for(int col = 0; col < line.length(); col++){
                 switch(ch[col]){
-                    case 'Û':
-                    case 'ô':
-                    case 'î':
-                    case 'Î':
-                    case 'û':
-                    case 'Ô':
-                    case 'ê':
-                    case 'Ê':
+                    case 'a':
+                    case 'b':
+                    case 'c':
+                    case 'd':
+                    case 'e':
+                    case 'f':
+                    case 'g':
+                    case 'h':
                         walls.add(new Wall(col, row)); break;
                     case '.':
                         pellets.add(new Pellet(col, row)); break;
-                    case '_':
+                    case '-':
                         powerUps.add(new PowerUp(col, row)); break;
                 }
             }
@@ -135,12 +136,6 @@ public class Map implements GhostDatabase{
         ArrayList<Ghost> ghosts = new ArrayList<>();
         Ghost red = new Ghost(15, 14);
         ghosts.add(red);
-        Ghost cyan = new Ghost(12,16);
-        ghosts.add(cyan);
-        Ghost orange = new Ghost(14,18);
-        ghosts.add(orange);
-        Ghost pink = new Ghost(16,20);
-        ghosts.add(pink);
         return ghosts;
     }
 
@@ -157,16 +152,14 @@ public class Map implements GhostDatabase{
         }
         return true;
     }
-
-
+    /*
     public Position moveGhost(Ghost ghost) {
         Position p1, p2;
         int x = ghost.getPosition().getX();
         int y = ghost.getPosition().getY();
         int x1 = x, x2 = x, y1 = y, y2 = y;
 
-        while(true) { //this way ghosts dont move diagonally
-            //check x
+        while(true) {
             if (ghost.getPosition().getX() < player.getPosition().getX()) {
                 x1 = x + 1;
             } else if (ghost.getPosition().getX() > player.getPosition().getX()) {
@@ -183,12 +176,25 @@ public class Map implements GhostDatabase{
             }
             p2 = new Position(x2, y2);
             if (y2 != y && this.canGhostMove(p2)) return p2;
-            else return ghost.getPosition(); //if cant move neither stop and move on the next turn
+            else return ghost.getPosition();
         }
     }
+    */
 
-    public void moveGhosts() {
-        for(Ghost ghost : ghosts) {
+    public Position moveGhost(Ghost ghost) {
+        Random r = new Random();
+
+        while(true) {
+            Position pRight = new Position(ghost.getPosition().getX() + r.nextInt(3)-1,ghost.getPosition().getY());
+            Position pLeft = new Position(ghost.getPosition().getX(), ghost.getPosition().getY() + r.nextInt(3) - 1);
+            if(canGhostMove(pRight)) return pRight;
+            if(canGhostMove(pLeft)) return pLeft;
+        }
+
+    }
+
+    public void moveGhosts(){
+        for(Ghost ghost : ghosts){
             ghost.setPosition(moveGhost(ghost));
         }
     }

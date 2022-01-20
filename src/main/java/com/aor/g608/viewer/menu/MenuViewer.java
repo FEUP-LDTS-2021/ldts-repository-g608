@@ -16,7 +16,7 @@ public class MenuViewer extends Viewer {
 
     public void draw(GUI gui, Menu menu) throws IOException {
         gui.drawBackground(gui.createTextGraphics(),"#000000");
-        gui.drawText(new Position(10,6),"PAÇMAN","#FFFFFF","#000000");
+        gui.drawText(new Position(10,6),"PA*MAN","#000000","#FFFF00");
         gui.drawText(new Position(11,14),"PLAY","#FFFFFF","#000000");
         gui.drawText(new Position(7,16),"INSTRUCTIONS","#FFFFFF","#000000");
         gui.drawText(new Position(11,18),"EXIT","#FFFFFF","#000000");

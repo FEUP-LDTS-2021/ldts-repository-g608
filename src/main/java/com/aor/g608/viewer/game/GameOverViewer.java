@@ -13,6 +13,10 @@ public class GameOverViewer extends Viewer {
 
     @Override
     public void draw(GUI gui) throws IOException {
-        gui.drawText(new Position(10, 10), "GAME OVER", "#FFFFFF", "#000000");
+        gui.clear();
+        gui.drawText(new Position(8, 10), "GAME OVER", "#000000", "#FF0000");
+        gui.drawText(new Position(2, 19), "PRESS ENTER TO GO TO MENU", "#000000", "#FFFFFF");
+        gui.drawText(new Position(2, 20), "PRESS ESC TO EXIT", "#000000", "#FFFFFF");
+        gui.refresh();
     }
 }

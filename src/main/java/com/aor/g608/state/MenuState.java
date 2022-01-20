@@ -18,7 +18,6 @@ public class MenuState  implements State {
     private MenuViewer menuViewer;
     private Menu menu;
 
-
     public MenuState(Game game, GUI gui, Menu menu) {
         this.gui = gui;
         this.menu = menu;
@@ -26,16 +25,15 @@ public class MenuState  implements State {
         menuViewer = new MenuViewer(gui);
     }
 
-    public MenuState(Game game, GUI gui) {
-        this.gui = gui;
-        this.game = game;
-    }
-
 
 
     @Override
     public void start(GUI gui) throws IOException {
         menuViewer.draw(gui, menu);
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
     @Override
@@ -58,7 +56,7 @@ public class MenuState  implements State {
                 if(menu.getArrow().getPosition().getY() == 14)
                     game.setState(new PlayState(game));
                 if(menu.getArrow().getPosition().getY() == 16)
-                    game.setState(new InstructionState(game));
+                    game.setState(new InstructionState(game, menu));
                 if(menu.getArrow().getPosition().getY() == 18)
                     gui.close();
             }

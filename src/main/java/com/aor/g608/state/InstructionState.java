@@ -4,6 +4,7 @@ import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.viewer.game.InstructionsViewer;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.aor.g608.model.menu.Menu;
 
 import java.awt.*;
 import java.io.IOException;
@@ -12,13 +13,15 @@ import java.net.URISyntaxException;
 public class InstructionState implements State{
 
     private final Game game;
-    InstructionsViewer instructionsViewer;
-    GUI gui;
+    private InstructionsViewer instructionsViewer;
+    private GUI gui;
+    private Menu menu;
 
-    public InstructionState(Game game) {
+    public InstructionState(Game game, Menu menu) {
         gui = game.getGui();
         instructionsViewer = new InstructionsViewer(gui);
         this.game = game;
+        this.menu = menu;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class InstructionState implements State{
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
         switch (keystroke.getKeyType()) {
-            case Escape -> game.setState(new MenuState(game, gui));
+            case Escape -> game.setState(new MenuState(game, gui, menu));
         }
     }
 }

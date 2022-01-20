@@ -17,7 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
-public class LanternaGUI implements GUI{
+public class LanternaGUI implements GUI {
     private final TerminalScreen screen;
     private final int width;
     private final int height;
@@ -26,7 +26,7 @@ public class LanternaGUI implements GUI{
     public LanternaGUI(int width, int height) throws IOException, FontFormatException {
         this.height = height;
         this.width = width;
-        AWTTerminalFontConfiguration fontConfiguration = loadOverkillFont();
+        AWTTerminalFontConfiguration fontConfiguration = loadPacmanFont();
         Terminal terminal = createTerminal(width, height, fontConfiguration);
         this.screen = createScreen(terminal);
     }
@@ -38,7 +38,7 @@ public class LanternaGUI implements GUI{
 
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         Terminal terminal = terminalFactory.createTerminal();
-        ((AWTTerminalFrame)terminal).addWindowListener(new WindowAdapter() {
+        ((AWTTerminalFrame) terminal).addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 e.getWindow().dispose();
@@ -62,8 +62,8 @@ public class LanternaGUI implements GUI{
     }
 
 
-    public AWTTerminalFontConfiguration loadOverkillFont() throws FontFormatException, IOException{
-        File fontFile = new File("src/main/resources/fonts/square.TTF");
+    public AWTTerminalFontConfiguration loadPacmanFont() throws FontFormatException, IOException {
+        File fontFile = new File("src/main/resources/fonts/pacman.ttf");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -79,7 +79,7 @@ public class LanternaGUI implements GUI{
     }
 
 
-    public void clear()  {
+    public void clear() {
         screen.clear();
     }
 
@@ -91,7 +91,7 @@ public class LanternaGUI implements GUI{
         screen.close();
     }
 
-    void drawElement(String color,int posX, int posY, String design) {
+    void drawElement(String color, int posX, int posY, String design) {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setForegroundColor(TextColor.Factory.fromString(color));
         graphics.putString(new TerminalPosition(posX, posY), design);
@@ -109,28 +109,28 @@ public class LanternaGUI implements GUI{
 
     @Override
     public void drawGhosts(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "ã");
+        drawElement(color, position.getX(), position.getY(), "i");
     }
 
     @Override
     public void drawPacman(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "Ç");
+        drawElement(color, position.getX(), position.getY(), "*");
     }
 
     @Override
     public void drawWall(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "Ô");
+        drawElement(color, position.getX(), position.getY(), "e");
     }
 
     @Override
     public void drawPellet(Position position, String color) {
-        drawElement("#FFFF00", position.getX(), position.getY(), ".");
+        drawElement(color, position.getX(), position.getY(), ".");
     }
 
 
     @Override
     public void drawPowerUp(Position position, String color) {
-        drawElement("#FF6347", position.getX(), position.getY(), "x");
+        drawElement(color, position.getX(), position.getY(), "-");
     }
 
     @Override
@@ -141,8 +141,44 @@ public class LanternaGUI implements GUI{
         textGraphics.putString(position.getX(), position.getY(), text);
     }
 
+
     @Override
     public void drawArrow(Position position, String arrowColor) {
         drawText(position, ">", arrowColor, "#000000");
+    }
+
+    @Override
+    public void drawCurvedUpperRightWall(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "d");
+    }
+
+    @Override
+    public void drawCurvedUpperLeftWall(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "c");
+    }
+
+    @Override
+    public void drawCurvedDownLeftWall(Position position, String color){
+        drawElement(color, position.getX(), position.getY(), "a");
+    }
+
+    @Override
+    public void drawCurvedDownRightWall(Position position, String color){
+        drawElement(color, position.getX(), position.getY(), "b");
+    }
+
+    @Override
+    public void drawLeftVerticalWall(Position position, String color){
+        drawElement(color, position.getX(), position.getY(), "g");
+    }
+
+    @Override
+    public void drawRightVerticalWall(Position position, String color){
+        drawElement(color, position.getX(), position.getY(), "h");
+    }
+
+    @Override
+    public void drawDownHorizontalWall(Position position, String color){
+        drawElement(color, position.getX(), position.getY(), "f");
     }
 }

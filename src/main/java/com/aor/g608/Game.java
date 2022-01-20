@@ -7,10 +7,8 @@ import com.aor.g608.state.MenuState;
 import com.aor.g608.state.State;
 import com.aor.g608.model.menu.Menu;
 import com.aor.g608.viewer.game.MusicPlayer;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.awt.*;
 import java.io.IOException;
@@ -133,5 +131,13 @@ public class Game {
 
     public Map getMap() {
         return map;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void restart(){
+        
     }
 }

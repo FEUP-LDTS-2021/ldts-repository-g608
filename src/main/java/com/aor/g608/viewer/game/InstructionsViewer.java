@@ -13,9 +13,16 @@ public class InstructionsViewer extends Viewer {
 
     @Override
     public void draw(GUI gui) throws IOException {
-        gui.drawBackground(gui.createTextGraphics(), "#F0F8FF");
-        gui.drawText(new Position(2, 0), "RULES", "#FFFFFF", "#000000");
-
+        gui.clear();
+        gui.drawBackground(gui.createTextGraphics(), "#000000");
+        gui.drawText(new Position(10, 4), "RULES", "#000000", "#00FFFF");
+        gui.drawText(new Position(2, 7), "TO WIN YOU MUST COLLECT",  "#000000", "#00FFFF");
+        gui.drawText(new Position(2, 8), "ALL THE PELLETS AVOIDING", "#000000", "#00FFFF");
+        gui.drawText(new Position(2, 9), "THE GHOSTS THAT WILL TRY", "#000000", "#00FFFF");
+        gui.drawText(new Position(2, 10), "TO EAT YOU IN THE MAP.", "#000000", "#00FFFF");
+        gui.drawText(new Position(2, 12), "USE ARROWS TO MOVE", "#000000", "#00FFFF");
+        gui.drawText(new Position(1, 20), "PRESS ESC TO RETURN","#000000", "#00FFFF" );
+        gui.refresh();
 
     }
 }
