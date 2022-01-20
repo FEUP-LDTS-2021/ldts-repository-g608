@@ -1,12 +1,11 @@
 package com.aor.g608.viewer.game;
 
 import com.aor.g608.gui.GUI;
+import com.aor.g608.model.game.Ghost;
+import com.aor.g608.model.game.Map;
 import com.aor.g608.model.game.Wall;
+import com.aor.g608.model.item.Pellet;
 import com.aor.g608.viewer.Viewer;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
@@ -15,9 +14,15 @@ import java.io.IOException;
 public class MapViewer extends Viewer {
     TextGraphics textGraphics;
     Screen screen;
+    GhostViewer ghostViewer;
+    PelletViewer pelletViewer;
+    WallViewer wallViewer;
+    Map map;
 
-    public MapViewer(GUI gui) {
+
+    public MapViewer(GUI gui, Map map) {
         super(gui);
+        this.map = map;
     }
 
 
@@ -26,8 +31,19 @@ public class MapViewer extends Viewer {
         gui.drawBackground(gui.createTextGraphics(), "#000000");
     }
 
-    @Override
     protected void drawElements(GUI gui) throws IOException {
-        for(auto e : )
+        for(Ghost e : map.getGhosts()){
+            ghostViewer.draw(e, gui);
+        }
+
+        for(Wall w : map.getWalls()){
+            wallViewer.draw(w, gui);
+        }
+
+        for(Pellet p : map.getPellets()){
+            pelletViewer.draw(p, gui);
+        }
+
+
     }
 }

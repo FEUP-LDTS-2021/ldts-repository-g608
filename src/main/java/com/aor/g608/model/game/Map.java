@@ -14,11 +14,11 @@ public class Map implements GhostDatabase{
     private final int height;
     private final int width;
     private GhostDatabase database;
-    private final List<Wall> walls;
-    private final List<Ghost> ghosts;
-    private final List<PowerUp> powerUps;
-    private final List<Pellet> pellets;
-    private final  Player player;
+    private final ArrayList<Wall> walls;
+    private final ArrayList<Ghost> ghosts;
+    private final ArrayList<PowerUp> powerUps;
+    private final ArrayList<Pellet> pellets;
+    private final Player player;
     private MapViewer mapViewer;
     private FileReader file;
     private GUI gui;
@@ -65,7 +65,7 @@ public class Map implements GhostDatabase{
         this.height = height;
         this.width = width;
         this.gui = gui;
-        mapViewer = new MapViewer(gui);
+        mapViewer = new MapViewer(gui, this);
 
         walls = createWalls();
         ghosts = createGhosts();
@@ -82,7 +82,7 @@ public class Map implements GhostDatabase{
         List<Ghost> allGhosts = database.getAllGhosts();
 
         for (Ghost ghost : allGhosts){
-            if(ghost.getColor().equals(color))
+            if(ghost.getPosition().equals(color))
                 return true;
         }
         return false;
@@ -135,8 +135,8 @@ public class Map implements GhostDatabase{
     }
 
 
-    public List<Wall> createWalls() {
-        List<Wall> walls = new ArrayList<>();
+    public ArrayList<Wall> createWalls() {
+        ArrayList<Wall> walls = new ArrayList<>();
 
         for(int i = 0; i < map.length; i++) {
             for(int j = 0; j < map[j].length; j++) {
@@ -148,8 +148,8 @@ public class Map implements GhostDatabase{
         return walls;
     }
 
-    public List<PowerUp> createPowerUps(){
-        List<PowerUp> powerUps = new ArrayList<>();
+    public ArrayList<PowerUp> createPowerUps(){
+        ArrayList<PowerUp> powerUps = new ArrayList<>();
 
         for(int i = 0; i < map.length; i++) {
             for(int j = 0; j < map[j].length; j++) {
@@ -162,8 +162,8 @@ public class Map implements GhostDatabase{
         return powerUps;
     }
 
-    public List<Pellet> createPellets() {
-        List<Pellet> pellets = new ArrayList<>();
+    public ArrayList<Pellet> createPellets() {
+        ArrayList<Pellet> pellets = new ArrayList<>();
 
         for(int i = 0; i < map.length; i++) {
             for(int j = 0; j < map[j].length; j++) {
@@ -176,19 +176,15 @@ public class Map implements GhostDatabase{
     }
 
 
-    private List<Ghost> createGhosts() {
+    private ArrayList<Ghost> createGhosts() {
         ArrayList<Ghost> ghosts = new ArrayList<>();
-        Position redPosition = new Position(10, 14);
-        Ghost red = new Ghost(redPosition,"red");
+        Ghost red = new Ghost(10, 14);
         ghosts.add(red);
-        Position cyanPosition = new Position(12, 16);
-        Ghost cyan = new Ghost(cyanPosition,"cyan");
+        Ghost cyan = new Ghost(12,16);
         ghosts.add(cyan);
-        Position orangePosition = new Position(14, 18);
-        Ghost orange = new Ghost(orangePosition,"orange");
+        Ghost orange = new Ghost(14,18);
         ghosts.add(orange);
-        Position pinkPosition = new Position(16, 20);
-        Ghost pink = new Ghost(pinkPosition,"pink");
+        Ghost pink = new Ghost(16,20);
         ghosts.add(pink);
         return ghosts;
     }
@@ -287,5 +283,17 @@ public class Map implements GhostDatabase{
 
     public List<Pellet> getPellets() {
         return pellets;
+    }
+
+    public ArrayList<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    public ArrayList<PowerUp> getPowerUps() {
+        return powerUps;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

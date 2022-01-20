@@ -10,5 +10,5 @@ public abstract class Viewer {
 
     public void draw(GUI gui) throws IOException{};
 
-    protected abstract void drawElements(GUI gui) throws IOException;
+    // protected void drawElements(GUI gui) throws IOException;
 }

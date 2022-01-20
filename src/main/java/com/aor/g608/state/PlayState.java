@@ -16,7 +16,7 @@ public class PlayState implements State{
 
     public PlayState(Game game) throws IOException {
         this.gui = game.getGui();
-        mapViewer = new MapViewer(gui);
+        mapViewer = new MapViewer(gui, map);
         this.game = game;
     }
 
