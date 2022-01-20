@@ -8,6 +8,8 @@ import java.io.IOException;
 
 public interface GUI {
 
+    enum PressedKey {UP,DOWN,RIGHT,LEFT,OTHER,ESCAPE, ENTER};
+
     TextGraphics createTextGraphics();
 
     void refresh() throws IOException;
@@ -31,5 +33,7 @@ public interface GUI {
     void drawText(Position position, String text, String textColor, String backgroundColor);
 
     void drawPowerUp(Position position, String color);
+
+    void drawArrow(Position position, String arrowColor);
 
 }

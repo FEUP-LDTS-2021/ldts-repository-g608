@@ -3,8 +3,11 @@ package com.aor.g608.state;
 import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.viewer.game.GameWonViewer;
+import com.googlecode.lanterna.input.KeyStroke;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class GameWonState implements State{
     private int selected;
@@ -25,5 +28,8 @@ public class GameWonState implements State{
         gameWonViewer.draw(gui);
     }
 
+    @Override
+    public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
 
+    }
 }

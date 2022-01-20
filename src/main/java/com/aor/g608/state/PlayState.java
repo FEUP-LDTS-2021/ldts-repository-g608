@@ -4,8 +4,11 @@ import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Map;
 import com.aor.g608.viewer.game.MapViewer;
+import com.googlecode.lanterna.input.KeyStroke;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class PlayState implements State{
     private Game game;
@@ -31,6 +34,11 @@ public class PlayState implements State{
         if(game.getMap().checkGhostEatsPlayer()){
             game.setState(new GameOverState(game));
         }
+
+    }
+
+    @Override
+    public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
 
     }
 }

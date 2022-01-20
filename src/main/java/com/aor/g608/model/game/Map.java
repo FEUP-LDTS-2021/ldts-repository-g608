@@ -18,10 +18,12 @@ public class Map implements GhostDatabase{
     private final ArrayList<Ghost> ghosts;
     private final ArrayList<PowerUp> powerUps;
     private final ArrayList<Pellet> pellets;
+    private GUI gui;
     private final Player player;
     private MapViewer mapViewer;
-    private FileReader file;
-    private GUI gui;
+    private FileReader reader;
+    private String file;
+
 
     private int score = 0;
 
@@ -60,11 +62,15 @@ public class Map implements GhostDatabase{
     };      //31
 
 
-    public Map(int width, int height, GUI gui) {
+    public Map(int width, int height, GUI gui, String file) {
         player = new Player(12, 21);
         this.height = height;
         this.width = width;
         this.gui = gui;
+        this.file = file;
+
+        file
+
         mapViewer = new MapViewer(gui, this);
 
         walls = createWalls();
@@ -297,3 +303,6 @@ public class Map implements GhostDatabase{
         return player;
     }
 }
+
+public void
+

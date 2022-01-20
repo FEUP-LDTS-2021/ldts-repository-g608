@@ -14,6 +14,7 @@ import com.googlecode.lanterna.screen.Screen;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Game {
     private Map map;
@@ -53,9 +54,10 @@ public class Game {
             this.width = width;
             this.height = height;
             gui = new LanternaGUI(width, height);
-            state = new MenuState(this, gui);
-            map = new Map(width, height, gui);
             menu = new Menu(gui);
+            state = new MenuState(this, gui, menu);
+            map = new Map(width, height, gui);
+
 
         }
 
@@ -94,19 +96,19 @@ public class Game {
                         if (userInput.getKeyType() == KeyType.EOF){
                             gui.close();
                         }
-                        //else state.
+                        else state.processInput(userInput);
                     }
 
                     long elapsedTime = System.currentTimeMillis() - startTime;
                     long sleepTime = fps - elapsedTime;
                     if(sleepTime > 0 ) Thread.sleep(sleepTime);
                      }
-                } catch (InterruptedException | IOException e){
+                } catch (InterruptedException | IOException | URISyntaxException | FontFormatException e){
                 e.printStackTrace();
             }
         }
 
-        private void processKey(KeyStroke key) throws IOException{
+    private void processKey(KeyStroke key) throws IOException {
             System.out.println(key);
             switch(key.getKeyType()){
                 case ArrowUp -> map.movePlayer(map.getPlayer().moveUp());
@@ -117,7 +119,7 @@ public class Game {
         }
 
     public static Game getInstance() throws IOException, FontFormatException {
-        singleton = new Game(42, 28);
+        singleton = new Game(28, 31);
         return singleton;
     }
 

@@ -14,7 +14,7 @@ public class GameTest {
     @Test
     public void DimensionTest() throws IOException, FontFormatException {
         Game game;
-        game = new Game(40, 20, 30);
+        game = new Game(40, 20);
         assertEquals(40, game.getWidth());
         game.setHeight(60);
         assertEquals(60, game.getHeight());

@@ -1,7 +1,6 @@
 package com.aor.g608.gui;
 
 import com.aor.g608.model.game.Position;
-import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -15,14 +14,13 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
 public class LanternaGUI implements GUI{
-    private TerminalScreen screen;
-    private int width;
-    private int height;
+    private final TerminalScreen screen;
+    private final int width;
+    private final int height;
 
 
     public LanternaGUI(int width, int height) throws IOException, FontFormatException {
@@ -65,7 +63,7 @@ public class LanternaGUI implements GUI{
 
 
     public AWTTerminalFontConfiguration loadOverkillFont() throws FontFormatException, IOException{
-        File fontFile = new File("src/main/resources/fonts/square.TTF");
+        File fontFile = new File("src/main/resources/fonts/PacmanFont.TTF");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -114,7 +112,7 @@ public class LanternaGUI implements GUI{
 
     @Override
     public void drawPacman(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "c");
+        drawElement(color, position.getX(), position.getY(), "Ç");
     }
 
     @Override
@@ -139,5 +137,10 @@ public class LanternaGUI implements GUI{
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(textColor));
         textGraphics.setForegroundColor(TextColor.Factory.fromString(backgroundColor));
         textGraphics.putString(position.getX(), position.getY(), text);
+    }
+
+    @Override
+    public void drawArrow(Position position, String arrowColor) {
+        drawText(position, ">", arrowColor, "#000000");
     }
 }
