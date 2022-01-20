@@ -2,26 +2,28 @@ package com.aor.g608.state;
 
 import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
-import com.aor.g608.viewer.game.GameOverViewer;
+import com.aor.g608.viewer.game.GameWonViewer;
 
 import java.io.IOException;
 
-public class GameOverState implements State{
-
+public class GameWonState implements State{
     private int selected;
     private Game game;
 
-    GameOverViewer gameOverViewer;
+    GameWonViewer gameWonViewer;
     GUI gui;
 
-    public GameOverState(Game game) {
-        this.game = game;
+
+    public GameWonState(Game game) {
         gui = game.getGui();
-        gameOverViewer = new GameOverViewer(gui);
+        this.game = game;
+        gameWonViewer = new GameWonViewer(gui);
     }
 
     @Override
     public void start(GUI gui) throws IOException {
-        gameOverViewer.draw(gui);
+        gameWonViewer.draw(gui);
     }
+
+
 }

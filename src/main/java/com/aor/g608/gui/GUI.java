@@ -1,38 +1,26 @@
 package com.aor.g608.gui;
 
-import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Position;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 
 public interface GUI {
-    void draw(TextGraphics screen);
-    /*
-    enum ACTION {
-        ENTER,
-        EXIT
-    }
 
     TextGraphics createTextGraphics();
 
-    int getWidth();
-    int getHeight();
-
-    void clear() throws IOException;
-
     void refresh() throws IOException;
 
-    void close() throws IOException;
-    */
+    void clear();
 
-    /*
+    void close() throws IOException;
+
+    Screen getScreen();
+
     void drawBackground(TextGraphics textGraphics, String color);
 
-    void drawRectangle(TextGraphics textGraphics, String color, int width, int height, Position position);
-
-    void drawButton(Position position, String text, String textColor, int width, int height);
-
-    void drawGhosts(Position position, String colors);
+    void drawGhosts(Position position, String color);
 
     void drawPacman(Position position, String color);
 
@@ -40,6 +28,8 @@ public interface GUI {
 
     void drawPellet(Position position, String color);
 
-    void drawTitle(Position position, String text, String color, String colorText);
-    */
+    void drawText(Position position, String text, String textColor, String backgroundColor);
+
+    void drawPowerUp(Position position, String color);
+
 }

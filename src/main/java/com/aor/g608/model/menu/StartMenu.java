@@ -1,7 +1,7 @@
 package com.aor.g608.model.menu;
 
 import com.aor.g608.Game;
-import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Position;
 
 import java.io.IOException;
 import java.util.Arrays;

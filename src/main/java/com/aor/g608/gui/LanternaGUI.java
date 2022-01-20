@@ -1,6 +1,6 @@
 package com.aor.g608.gui;
 
-import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
@@ -9,15 +9,17 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.swing.AWTTerminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
 
-public class LanternaGUI {
+public class LanternaGUI implements GUI{
     private TerminalScreen screen;
     private int width;
     private int height;
@@ -32,15 +34,18 @@ public class LanternaGUI {
     }
 
     public Terminal createTerminal(int width, int height, AWTTerminalFontConfiguration fontConfig) throws IOException {
-        TerminalSize terminalSize = new TerminalSize(width, height + 1);
+        TerminalSize terminalSize = new TerminalSize(width, height);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
         terminalFactory.setForceAWTOverSwing(true);
 
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         Terminal terminal = terminalFactory.createTerminal();
-        ((AWTTerminalFrame)terminal).setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-        Image image = Toolkit.getDefaultToolkit().getImage("src/main/resources/fonts/cursor.png");
-        ((AWTTerminalFrame)terminal).setCursor(Toolkit.getDefaultToolkit().createCustomCursor(image, new Point(10, 10), "img"));
+        ((AWTTerminalFrame)terminal).addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                e.getWindow().dispose();
+            }
+        });
         return terminal;
     }
 
@@ -76,15 +81,7 @@ public class LanternaGUI {
     }
 
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void clear() throws IOException {
+    public void clear()  {
         screen.clear();
     }
 
@@ -96,53 +93,51 @@ public class LanternaGUI {
         screen.close();
     }
 
+    void drawElement(String color,int posX, int posY, String design) {
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setForegroundColor(TextColor.Factory.fromString(color));
+        graphics.putString(new TerminalPosition(posX, posY), design);
+        graphics.setBackgroundColor(TextColor.Factory.fromString(null));
+    }
+
+
     public void drawBackground(TextGraphics textGraphics, String color) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
         textGraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(this.width, this.height), ' ');
-
-    }
-
-    public void drawRectangle(TextGraphics textGraphics, String color, int width, int height, Position position) {
-        textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        textGraphics.fillRectangle(new TerminalPosition(position.getX(), position.getY()), new TerminalSize(width, height), ' ');
     }
 
 
-    public void drawButton(Position position, String text, String textColor, int width, int height) {
-        TextGraphics textGraphics = screen.newTextGraphics();
-        drawText(textGraphics, position, text, textColor);
+    @Override
+    public void drawGhosts(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "m");
     }
 
-    public void drawGhosts(Position position, String colors) {
-        drawText( screen.newTextGraphics() , position, "m", colors);
-    }
-
+    @Override
     public void drawPacman(Position position, String color) {
-        drawText( screen.newTextGraphics() , position, "c", color);
+        drawElement(color, position.getX(), position.getY(), "c");
     }
 
+    @Override
     public void drawWall(Position position, String color) {
-
+        drawElement(color, position.getX(), position.getY(), "*");
     }
 
-
+    @Override
     public void drawPellet(Position position, String color) {
-
+        drawElement("#FFFF00", position.getX(), position.getY(), ".");
     }
 
-    public void drawTitle(Position position, String text, String color, String colorText) {
+
+    @Override
+    public void drawPowerUp(Position position, String color) {
+        drawElement("#FF6347", position.getX(), position.getY(), "x");
+    }
+
+    @Override
+    public void drawText(Position position, String text, String textColor, String backgroundColor) {
         TextGraphics textGraphics = screen.newTextGraphics();
-        textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
-        drawText(textGraphics, position, text,colorText);
-    }
-
-    private void drawText(TextGraphics textGraphics, Position position, String text, String color) {
-        textGraphics.setForegroundColor(TextColor.Factory.fromString(color));
-        textGraphics.enableModifiers(SGR.BOLD);
-        textGraphics.putString(position.getX(),position.getY(),text);
-    }
-
-    public void drawMenu(){
-
+        textGraphics.setBackgroundColor(TextColor.Factory.fromString(textColor));
+        textGraphics.setForegroundColor(TextColor.Factory.fromString(backgroundColor));
+        textGraphics.putString(position.getX(), position.getY(), text);
     }
 }

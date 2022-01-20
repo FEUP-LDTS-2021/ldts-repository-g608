@@ -1,26 +1,11 @@
 package com.aor.g608.state;
 
-import com.aor.g608.Game;
-import com.aor.g608.model.menu.Button;
+import com.aor.g608.gui.GUI;
+import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
-import java.util.List;
+import java.security.spec.KeySpec;
 
-public abstract class State {
-    protected Game game;
-    private List<Button> buttons;
-
-    public State(Game game, List<Button> buttons) {
-        this.game = game;
-        this.buttons = buttons;
-    }
-
-    public abstract void start();
-
-    public List<Button> getButtons() {
-        return buttons;
-    }
-
-    public void changeState(State state) {}
-
+public interface State {
+    void start(GUI gui) throws IOException;
 }

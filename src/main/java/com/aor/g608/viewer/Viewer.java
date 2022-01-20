@@ -1,4 +1,14 @@
 package com.aor.g608.viewer;
 
-public class Viewer {
+import com.aor.g608.gui.GUI;
+
+import java.io.IOException;
+
+public abstract class Viewer {
+
+    public Viewer(GUI gui) {}
+
+    public void draw(GUI gui) throws IOException{};
+
+    protected abstract void drawElements(GUI gui) throws IOException;
 }

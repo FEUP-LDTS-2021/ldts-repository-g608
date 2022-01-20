@@ -1,23 +1,25 @@
 package com.aor.g608.controller;
 
 
-import com.aor.g608.model.Position;
-import com.aor.g608.state.Interaction.KeyboardInter;
-import com.aor.g608.state.State;
+import com.aor.g608.Game;
+import com.aor.g608.state.PlayState;
 import com.googlecode.lanterna.input.KeyStroke;
 
-
-public class MenuController {
-    private State state;
+import java.io.IOException;
 
 
-    public void keyPressed(KeyStroke keyStroke) {
-        /*
-        switch(keyStroke.getKeyType()){
-            case ArrowUp -> map.movePlayer(map.moveUp());
-            case ArrowDown -> map.movePlayer(map.moveDown());
+public class MenuController implements Controller{
+    private final Game game;
+
+    public MenuController(Game game) {
+        this.game = game;
+    }
+
+    @Override
+    public void processInput(KeyStroke key) throws IOException {
+        System.out.println(key);
+        switch(key.getKeyType()){
+            case Enter -> game.setState(new PlayState(game));
         }
-        */
-
     }
 }

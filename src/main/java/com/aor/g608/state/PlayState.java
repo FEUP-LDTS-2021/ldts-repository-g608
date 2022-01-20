@@ -2,24 +2,35 @@ package com.aor.g608.state;
 
 import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
-import com.aor.g608.model.Position;
-import com.aor.g608.model.menu.Button;
+import com.aor.g608.model.game.Map;
+import com.aor.g608.viewer.game.MapViewer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class PlayState extends State{
+public class PlayState implements State{
+    private Game game;
+    private GUI gui;
+    private Map map;
+    private State state;
+    private MapViewer mapViewer;
 
-
-    public PlayState(Game game, GUI gui) throws IOException {
-        super(game, Arrays.asList(new Button(new Position(3, 9),"Needs to be implemented", Arrays.asList("#FFFFFF", "#FF0000")), new Button(new Position(4, 10),"Needs to be implemented as well", Arrays.asList("#FFFFFF", "#FF0000"))));
+    public PlayState(Game game) throws IOException {
+        this.gui = game.getGui();
+        mapViewer = new MapViewer(gui);
+        this.game = game;
     }
 
     @Override
-    public void start() {
+    public void start(GUI gui) throws IOException {
+        game.getMap().moveGhosts();
+
+        if(game.getMap().getPellets().size() == 0){
+            game.setState(new GameWonState(game));
+        }
+
+        if(game.getMap().checkGhostEatsPlayer()){
+            game.setState(new GameOverState(game));
+        }
 
     }
-
 }

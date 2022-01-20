@@ -1,6 +1,6 @@
 package com.aor.g608.model;
 
-import com.aor.g608.model.Position;
+import com.aor.g608.model.game.Position;
 import com.aor.g608.model.game.Wall;
 
 import org.junit.jupiter.api.Test;

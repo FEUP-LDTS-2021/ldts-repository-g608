@@ -1,25 +1,26 @@
 package com.aor.g608.state;
 
 import com.aor.g608.Game;
-import com.aor.g608.command.ButtonCommand;
 import com.aor.g608.gui.GUI;
-import com.aor.g608.model.Position;
-import com.aor.g608.model.menu.Button;
+import com.aor.g608.viewer.menu.MenuViewer;
+import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
-public class MenuState extends State {
+public class MenuState  implements State{
+    private GUI gui;
+    private Game game;
+    private MenuViewer menuViewer;
 
-    public MenuState(Game game, GUI gui) throws IOException {
-        super(game, Arrays.asList(new Button(new Position(game.getWidth() - 7, game.getHeight() -7), "PLAY", new ButtonCommand(new PlayState(game, gui)), "#000000")));
+
+    public MenuState(Game game, GUI gui) {
+        this.gui = gui;
+        menuViewer = new MenuViewer(gui);
+        this.game = game;
     }
 
     @Override
-    public void start() {
-
+    public void start(GUI gui) throws IOException {
+        menuViewer.draw(gui);
     }
-
-
 }

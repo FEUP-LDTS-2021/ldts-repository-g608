@@ -1,35 +1,24 @@
 package com.aor.g608.model.game;
 
-import com.aor.g608.Element;
 import com.aor.g608.gui.GUI;
-import com.aor.g608.model.Position;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Player extends Element implements GUI {
+public class Player extends Element {
 
-    public Player(Position position, String color) {
-        super(position, color);
+    public Player(int x, int y) {
+        super(x, y);
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    @Override
-    public void setPosition(Position position) {
-        this.position = position;
-    }
+    public Position moveUp() {return new Position(position.getX(),position.getY()-1);}
+    public Position moveDown() {return new Position(position.getX(),position.getY()+1);}
+    public Position moveRight() {return new Position(position.getX()+1,position.getY());}
+    public Position moveLeft() {return new Position(position.getX()-1,position.getY());}
 
 
-    public void draw(TextGraphics screen){
-        screen.setForegroundColor(TextColor.ANSI.YELLOW);
-        screen.enableModifiers(SGR.BOLD);
-        screen.putString(new TerminalPosition(position.getX(), position.getY()), "C");
-    }
+
 
 
 }

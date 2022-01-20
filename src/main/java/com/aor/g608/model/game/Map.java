@@ -1,29 +1,33 @@
 package com.aor.g608.model.game;
 
-import com.aor.g608.model.Position;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
+import com.aor.g608.gui.FileReader;
+import com.aor.g608.gui.GUI;
+import com.aor.g608.model.item.Pellet;
+import com.aor.g608.model.item.PowerUp;
+import com.aor.g608.viewer.game.MapViewer;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Map implements GhostDatabase{
-    private int height;
-    private int width;
+    private final int height;
+    private final int width;
     private GhostDatabase database;
-    private List<Wall> walls;
-    private List<Ghost> ghosts;
-    private List<Pellet> pellets;
-    private Player player;
+    private final List<Wall> walls;
+    private final List<Ghost> ghosts;
+    private final List<PowerUp> powerUps;
+    private final List<Pellet> pellets;
+    private final  Player player;
+    private MapViewer mapViewer;
+    private FileReader file;
+    private GUI gui;
+
     private int score = 0;
 
     private char[][] map = {
             {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
-            {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+            {'#','-','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','-','#',},
             {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
             {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
             {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
@@ -51,20 +55,22 @@ public class Map implements GhostDatabase{
             {'#','p','p','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','p','p','#',},
             {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
             {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
-            {'#','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','#',},
+            {'#','-','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','-','#',},
             {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}
     };      //31
 
 
-    public Map(int width, int height) {
-        Position position = new Position(12, 21);
-        player = new Player(position, "yellow"); // it doesn't mean will exactly be "yellow", but instead the color's code
+    public Map(int width, int height, GUI gui) {
+        player = new Player(12, 21);
         this.height = height;
         this.width = width;
+        this.gui = gui;
+        mapViewer = new MapViewer(gui);
 
         walls = createWalls();
         ghosts = createGhosts();
         pellets = createPellets();
+        powerUps = createPowerUps();
 
     }
 
@@ -85,7 +91,7 @@ public class Map implements GhostDatabase{
     public boolean canPlayerMove(Position position) {
         return (position.getX() >= 0 && position.getX() < width) &&
                 (position.getY() >= 0 && position.getY() < height) &&
-                !walls.contains(new Wall(position, "#FFFFFF"));
+                !walls.contains(new Wall(position.getX(), position.getY()));
     }
 
 
@@ -114,21 +120,8 @@ public class Map implements GhostDatabase{
     }
 
 
-    public void draw(TextGraphics screen) {
-        screen.setBackgroundColor(TextColor.ANSI.BLACK);
-        screen.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-        screen.enableModifiers(SGR.BOLD);
+    public void draw() {
 
-        for(Pellet pellet : pellets)
-            pellet.draw(screen);
-
-        player.draw(screen);
-
-        for(Wall wall : walls)
-            wall.draw(screen);
-
-        for(Ghost ghost : ghosts)
-            ghost.draw(screen);
 
 
     }
@@ -148,12 +141,25 @@ public class Map implements GhostDatabase{
         for(int i = 0; i < map.length; i++) {
             for(int j = 0; j < map[j].length; j++) {
                 if(map[i][j] == '#') {
-                    Position wallPosition = new Position(j, i);
-                    walls.add(new Wall(wallPosition, "#FFFFFF"));
+                    walls.add(new Wall(j, i));
                 }
             }
         }
         return walls;
+    }
+
+    public List<PowerUp> createPowerUps(){
+        List<PowerUp> powerUps = new ArrayList<>();
+
+        for(int i = 0; i < map.length; i++) {
+            for(int j = 0; j < map[j].length; j++) {
+                if(map[i][j] == '-') {
+                    Position powerUpPosition = new Position(j, i);
+                    powerUps.add(new PowerUp(j,i));
+                }
+            }
+        }
+        return powerUps;
     }
 
     public List<Pellet> createPellets() {
@@ -162,8 +168,7 @@ public class Map implements GhostDatabase{
         for(int i = 0; i < map.length; i++) {
             for(int j = 0; j < map[j].length; j++) {
                 if(map[i][j] == 'p') {
-                    Position pelletPosition = new Position(j, i);
-                    pellets.add(new Pellet(pelletPosition, "#FFFF00"));
+                    pellets.add(new Pellet(j, i));
                 }
             }
         }
@@ -189,18 +194,20 @@ public class Map implements GhostDatabase{
     }
 
     public boolean canGhostMove(Position position) {
-        boolean b = true;
         for(Wall wall: walls) {
-            if(position.equals(wall.getPosition())) {
-                b = false;
-            }
-            for(Ghost ghost : ghosts) {
-                if(position.equals(ghost.getPosition())) {
-                    b = false;
-                }
+            if (position.equals(wall.getPosition())) {
+                return false;
             }
         }
-        return b;
+
+        for(Ghost ghost : ghosts) {
+            if(position.equals(ghost.getPosition())) {
+                return false;
+            }
+        }
+
+
+        return true;
     }
 
 
@@ -213,7 +220,6 @@ public class Map implements GhostDatabase{
         int x1 = x, x2 = x, y1 = y, y2 = y;
 
         while(true) {
-            //check x
             if (ghost.getPosition().getX() < player.getPosition().getX()) {
                 x1 = x + 1;
             } else if (ghost.getPosition().getX() > player.getPosition().getX()) {
@@ -256,6 +262,16 @@ public class Map implements GhostDatabase{
             }
     }
 
+
+    public boolean retrievePowerUps() {
+        for(PowerUp powerUp : powerUps)
+            if(player.getPosition().equals(powerUp.getPosition())){
+                powerUps.remove(powerUp);
+                return true;
+            }
+        return false;
+    }
+
     @Override
     public List<Ghost> getAllGhosts() {
         return ghosts;
@@ -267,5 +283,9 @@ public class Map implements GhostDatabase{
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public List<Pellet> getPellets() {
+        return pellets;
     }
 }

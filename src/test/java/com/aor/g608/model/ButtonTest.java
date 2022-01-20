@@ -1,7 +1,6 @@
 package com.aor.g608.model;
 
-import com.aor.g608.model.menu.Button;
-import org.junit.jupiter.api.BeforeEach;
+import com.aor.g608.model.game.Position;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
