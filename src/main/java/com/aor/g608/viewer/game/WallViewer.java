@@ -7,6 +7,6 @@ public class WallViewer implements ElementViewer<Wall>{
 
     @Override
     public void draw(Wall wall, GUI gui) {
-        gui.drawWall(wall.getPosition(), "#FFFFFF");
+        gui.drawWall(wall.getPosition(), "#F0F8FF");
     }
 }

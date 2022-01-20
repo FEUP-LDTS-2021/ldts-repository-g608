@@ -63,7 +63,7 @@ public class LanternaGUI implements GUI{
 
 
     public AWTTerminalFontConfiguration loadOverkillFont() throws FontFormatException, IOException{
-        File fontFile = new File("src/main/resources/fonts/PacmanFont.TTF");
+        File fontFile = new File("src/main/resources/fonts/square.TTF");
         Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -102,12 +102,14 @@ public class LanternaGUI implements GUI{
     public void drawBackground(TextGraphics textGraphics, String color) {
         textGraphics.setBackgroundColor(TextColor.Factory.fromString(color));
         textGraphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(this.width, this.height), ' ');
+        textGraphics.setBackgroundColor(TextColor.ANSI.BLACK);
+        textGraphics.setForegroundColor(TextColor.ANSI.BLACK);
     }
 
 
     @Override
     public void drawGhosts(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "m");
+        drawElement(color, position.getX(), position.getY(), "ã");
     }
 
     @Override
@@ -117,7 +119,7 @@ public class LanternaGUI implements GUI{
 
     @Override
     public void drawWall(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "*");
+        drawElement(color, position.getX(), position.getY(), "Ô");
     }
 
     @Override

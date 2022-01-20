@@ -7,77 +7,77 @@ import com.aor.g608.model.item.PowerUp;
 import com.aor.g608.viewer.game.MapViewer;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Map implements GhostDatabase{
+
     private final int height;
     private final int width;
     private GhostDatabase database;
-    private final ArrayList<Wall> walls;
-    private final ArrayList<Ghost> ghosts;
-    private final ArrayList<PowerUp> powerUps;
-    private final ArrayList<Pellet> pellets;
+    private ArrayList<Wall> walls;
+    private ArrayList<Ghost> ghosts;
+    private ArrayList<PowerUp> powerUps;
+    private ArrayList<Pellet> pellets;
     private GUI gui;
     private final Player player;
     private MapViewer mapViewer;
-    private FileReader reader;
-    private String file;
+    private FileReader file;
 
 
     private int score = 0;
 
-    private char[][] map = {
-            {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}, //28
-            {'#','-','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','-','#',},
-            {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
-            {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
-            {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
-            {'#','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','#',},
-            {'#','p','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','p','#',},
-            {'#','p','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','p','#',},
-            {'#','p','p','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','p','p','#',},
-            {'#','#','#','#','#','#','p','#','#','#','#','#',' ','#','#',' ','#','#','#','#','#','p','#','#','#','#','#','#',},
-            {' ',' ',' ',' ',' ','#','p','#','#','#','#','#',' ','#','#',' ','#','#','#','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ','#','p','#','#',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','#','#','p','#',' ',' ',' ',' ',' ',},
-            {'#','#','#','#','#','#','p','#','#',' ','#','#','#','#','#','#','#','#',' ','#','#','p','#','#','#','#','#','#',},
-            {'#','p','p','p','p','p','p','p','p','p','p','p','p','#','#','p','p','p','p','p','p','p','p','p','p','p','p','#',},
-            {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
-            {'#','p','#','#','#','#','p','#','#','#','#','#','p','#','#','p','#','#','#','#','#','p','#','#','#','#','p','#',},
-            {'#','p','p','p','#','#','p','p','p','p','p','p','p',' ',' ','p','p','p','p','p','p','p','#','#','p','p','p','#',},
-            {'#','#','#','p','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','p','#','#','#',},
-            {'#','#','#','p','#','#','p','#','#','p','#','#','#','#','#','#','#','#','p','#','#','p','#','#','p','#','#','#',},
-            {'#','p','p','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','#','#','p','p','p','p','p','p','#',},
-            {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
-            {'#','p','#','#','#','#','#','#','#','#','#','#','p','#','#','p','#','#','#','#','#','#','#','#','#','#','p','#',},
-            {'#','-','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','p','-','#',},
-            {'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#','#',}
-    };      //31
 
-
-    public Map(int width, int height, GUI gui, String file) {
+    public Map(int width, int height, GUI gui) throws FileNotFoundException {
         player = new Player(12, 21);
         this.height = height;
         this.width = width;
         this.gui = gui;
-        this.file = file;
 
-        file
-
+        file = new FileReader("src/main/resources/maps/map.txt");
         mapViewer = new MapViewer(gui, this);
 
-        walls = createWalls();
-        ghosts = createGhosts();
-        pellets = createPellets();
-        powerUps = createPowerUps();
+        createMap();
 
+    }
+
+
+    public void createMap(){
+        ArrayList<Wall> walls = new ArrayList<>();
+        ArrayList<Pellet> pellets = new ArrayList<>();
+        ArrayList<PowerUp> powerUps = new ArrayList<>();
+
+        List<String> lines = file.getMap();
+        for(int row = 0; row < lines.size(); row++){
+            String line = lines.get(row);
+            char[] ch = new char[line.length()];
+            for(int i = 0; i < line.length(); i++){
+                ch[i] = line.charAt(i);
+            }
+            for(int col = 0; col < line.length(); col++){
+                switch(ch[col]){
+                    case 'Û':
+                    case 'ô':
+                    case 'î':
+                    case 'Î':
+                    case 'û':
+                    case 'Ô':
+                    case 'ê':
+                    case 'Ê':
+                        walls.add(new Wall(col, row)); break;
+                    case '.':
+                        pellets.add(new Pellet(col, row)); break;
+                    case '_':
+                        powerUps.add(new PowerUp(col, row)); break;
+                }
+            }
+        }
+        this.walls = walls;
+        this.pellets = pellets;
+        this.powerUps = powerUps;
+        this.ghosts = createGhosts();
     }
 
     public void GhostFinder(GhostDatabase database){
@@ -102,12 +102,12 @@ public class Map implements GhostDatabase{
 
 
     public void movePlayer(Position position){
-        if(canPlayerMove(position)){
+        if(canPlayerMove(position)) {
             player.setPosition(position);
             retrievePellets();
         }
-        else System.out.println("not moving there");
     }
+
 
     public Position moveUp() {
         return new Position(player.getPosition().getX(), player.getPosition().getY() - 1);
@@ -126,65 +126,14 @@ public class Map implements GhostDatabase{
     }
 
 
-    public void draw() {
-
-
-
-    }
-
     public List<Wall> getWalls() {
         return walls;
-    }
-
-    public void  addWall(Wall wall){
-        walls.add(wall);
-    }
-
-
-    public ArrayList<Wall> createWalls() {
-        ArrayList<Wall> walls = new ArrayList<>();
-
-        for(int i = 0; i < map.length; i++) {
-            for(int j = 0; j < map[j].length; j++) {
-                if(map[i][j] == '#') {
-                    walls.add(new Wall(j, i));
-                }
-            }
-        }
-        return walls;
-    }
-
-    public ArrayList<PowerUp> createPowerUps(){
-        ArrayList<PowerUp> powerUps = new ArrayList<>();
-
-        for(int i = 0; i < map.length; i++) {
-            for(int j = 0; j < map[j].length; j++) {
-                if(map[i][j] == '-') {
-                    Position powerUpPosition = new Position(j, i);
-                    powerUps.add(new PowerUp(j,i));
-                }
-            }
-        }
-        return powerUps;
-    }
-
-    public ArrayList<Pellet> createPellets() {
-        ArrayList<Pellet> pellets = new ArrayList<>();
-
-        for(int i = 0; i < map.length; i++) {
-            for(int j = 0; j < map[j].length; j++) {
-                if(map[i][j] == 'p') {
-                    pellets.add(new Pellet(j, i));
-                }
-            }
-        }
-        return pellets;
     }
 
 
     private ArrayList<Ghost> createGhosts() {
         ArrayList<Ghost> ghosts = new ArrayList<>();
-        Ghost red = new Ghost(10, 14);
+        Ghost red = new Ghost(15, 14);
         ghosts.add(red);
         Ghost cyan = new Ghost(12,16);
         ghosts.add(cyan);
@@ -201,18 +150,13 @@ public class Map implements GhostDatabase{
                 return false;
             }
         }
-
         for(Ghost ghost : ghosts) {
             if(position.equals(ghost.getPosition())) {
                 return false;
             }
         }
-
-
         return true;
     }
-
-
 
 
     public Position moveGhost(Ghost ghost) {
@@ -221,7 +165,8 @@ public class Map implements GhostDatabase{
         int y = ghost.getPosition().getY();
         int x1 = x, x2 = x, y1 = y, y2 = y;
 
-        while(true) {
+        while(true) { //this way ghosts dont move diagonally
+            //check x
             if (ghost.getPosition().getX() < player.getPosition().getX()) {
                 x1 = x + 1;
             } else if (ghost.getPosition().getX() > player.getPosition().getX()) {
@@ -264,6 +209,10 @@ public class Map implements GhostDatabase{
             }
     }
 
+    public void draw() throws IOException{
+        mapViewer.draw();
+        gui.refresh();
+    }
 
     public boolean retrievePowerUps() {
         for(PowerUp powerUp : powerUps)
@@ -304,5 +253,4 @@ public class Map implements GhostDatabase{
     }
 }
 
-public void
 

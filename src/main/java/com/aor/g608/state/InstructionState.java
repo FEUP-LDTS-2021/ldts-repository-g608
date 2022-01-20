@@ -29,6 +29,8 @@ public class InstructionState implements State{
 
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
-
+        switch (keystroke.getKeyType()) {
+            case Escape -> game.setState(new MenuState(game, gui));
+        }
     }
 }

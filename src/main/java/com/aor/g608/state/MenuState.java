@@ -16,7 +16,7 @@ public class MenuState  implements State {
     private final GUI gui;
     private final Game game;
     private MenuViewer menuViewer;
-    private final Menu menu;
+    private Menu menu;
 
 
     public MenuState(Game game, GUI gui, Menu menu) {
@@ -25,6 +25,13 @@ public class MenuState  implements State {
         this.game = game;
         menuViewer = new MenuViewer(gui);
     }
+
+    public MenuState(Game game, GUI gui) {
+        this.gui = gui;
+        this.game = game;
+    }
+
+
 
     @Override
     public void start(GUI gui) throws IOException {

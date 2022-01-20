@@ -5,6 +5,7 @@ import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Map;
 import com.aor.g608.viewer.game.MapViewer;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class PlayState implements State{
         this.gui = game.getGui();
         mapViewer = new MapViewer(gui, map);
         this.game = game;
+        this.map = game.getMap();
     }
 
     @Override
@@ -34,11 +36,16 @@ public class PlayState implements State{
         if(game.getMap().checkGhostEatsPlayer()){
             game.setState(new GameOverState(game));
         }
-
+        map.draw();
     }
 
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
+        if(keystroke.getKeyType() == KeyType.Escape)
+            game.setState(new MenuState(game, gui));
 
+        game.processKey(keystroke);
     }
+
+
 }

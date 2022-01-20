@@ -8,6 +8,7 @@ public abstract class Element {
     protected Position position;
 
     public Element(int x, int y){
+
         position = new Position(x, y);
     }
 
@@ -18,4 +19,5 @@ public abstract class Element {
     public void setPosition(Position position) {
         this.position = position;
     }
+
 }

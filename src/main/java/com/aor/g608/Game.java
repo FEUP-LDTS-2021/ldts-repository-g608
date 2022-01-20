@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
 public class Game {
     private Map map;
     private Menu menu;
-    private int width, height, fps = 30;
+    private int width, height, fps = 10;
     private boolean exit;
     private GUI gui;
     private State state;
@@ -108,7 +108,7 @@ public class Game {
             }
         }
 
-    private void processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) throws IOException {
             System.out.println(key);
             switch(key.getKeyType()){
                 case ArrowUp -> map.movePlayer(map.getPlayer().moveUp());

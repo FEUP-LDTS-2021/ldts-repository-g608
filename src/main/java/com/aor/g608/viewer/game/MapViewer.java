@@ -1,49 +1,37 @@
 package com.aor.g608.viewer.game;
 
 import com.aor.g608.gui.GUI;
-import com.aor.g608.model.game.Ghost;
+import com.aor.g608.model.game.Element;
 import com.aor.g608.model.game.Map;
-import com.aor.g608.model.game.Wall;
-import com.aor.g608.model.item.Pellet;
-import com.aor.g608.viewer.Viewer;
-import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
+import java.util.List;
 
-import java.io.IOException;
-
-public class MapViewer extends Viewer {
-    TextGraphics textGraphics;
-    Screen screen;
-    GhostViewer ghostViewer;
-    PelletViewer pelletViewer;
-    WallViewer wallViewer;
-    Map map;
+public class MapViewer {
+    private final Map map;
+    private final GUI gui;
 
 
     public MapViewer(GUI gui, Map map) {
-        super(gui);
+        this.gui = gui;
         this.map = map;
     }
 
-
-    @Override
-    public void draw(GUI gui) {
+    public void draw() {
+        gui.clear();
         gui.drawBackground(gui.createTextGraphics(), "#000000");
+        drawElements(this.map.getWalls(), new WallViewer());
+        drawElements(this.map.getPellets(), new PelletViewer());
+        drawElements(this.map.getGhosts(), new GhostViewer());
+        drawElement(this.map.getPlayer(), new PlayerViewer());
+        //drawElements(this.map.getPlayer(), new PlayerVi);
     }
 
-    protected void drawElements(GUI gui) throws IOException {
-        for(Ghost e : map.getGhosts()){
-            ghostViewer.draw(e, gui);
-        }
 
-        for(Wall w : map.getWalls()){
-            wallViewer.draw(w, gui);
-        }
+    private <T extends Element> void drawElements(List<T> elements, ElementViewer<T> viewer) {
+        for (T element : elements)
+            drawElement(element, viewer);
+    }
 
-        for(Pellet p : map.getPellets()){
-            pelletViewer.draw(p, gui);
-        }
-
-
+    private <T extends Element> void drawElement(T element, ElementViewer<T> viewer) {
+        viewer.draw(element, gui);
     }
 }
