@@ -12,6 +12,6 @@ public class ArrowViewer implements ElementViewer<Arrow> {
 
     @Override
     public void draw(Arrow arrow, GUI gui) {
-        gui.drawArrow(arrow.getPosition(), "#000000");
+        gui.drawArrow(arrow.getPosition(), "#FF0000");
     }
 }

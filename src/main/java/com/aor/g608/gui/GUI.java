@@ -44,11 +44,7 @@ public interface GUI {
 
     void drawCurvedDownRightWall(Position position, String color);
 
-    void drawCyanGhost(Position position, String color);
-    
-    void drawOrangeGhost(Position position, String color);
-    
-    void drawPinkGhost(Position position, String color);
+
 
 
 }

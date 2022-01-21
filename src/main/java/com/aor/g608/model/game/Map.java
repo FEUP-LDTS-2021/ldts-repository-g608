@@ -2,10 +2,7 @@ package com.aor.g608.model.game;
 
 import com.aor.g608.gui.FileReader;
 import com.aor.g608.gui.GUI;
-import com.aor.g608.model.ghost.CyanGhost;
 import com.aor.g608.model.ghost.Ghost;
-import com.aor.g608.model.ghost.OrangeGhost;
-import com.aor.g608.model.ghost.PinkGhost;
 import com.aor.g608.model.item.Pellet;
 import com.aor.g608.model.item.PowerUp;
 import com.aor.g608.model.wall.*;
@@ -18,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Map implements GhostDatabase{
+public class Map {
 
     private final int height;
     private final int width;
     private GhostDatabase database;
     private ArrayList<Wall> walls;
     private Ghost redGhost;
-    private PinkGhost pinkGhost;
-    private CyanGhost cyanGhost;
-    private OrangeGhost orangeGhost;
+    private Ghost pinkGhost;
+    private Ghost cyanGhost;
+    private Ghost orangeGhost;
     private ArrayList<PowerUp> powerUps;
     private ArrayList<Pellet> pellets;
     private ArrayList<VerticalWall> verticalWalls;
@@ -100,6 +97,9 @@ public class Map implements GhostDatabase{
         this.pellets = pellets;
         this.powerUps = powerUps;
         this.redGhost = createGhosts();
+        this.pinkGhost = createPinkGhost();
+        this.cyanGhost = createCyanGhost();
+        this.orangeGhost = createOrangeGhost();
         this.curvedUpperRightWalls = curvedUpperRightWalls;
         this.curvedDownRightWalls = curvedDownRightWalls;
         this.curvedUpperLeftWalls = curvedUpperLeftWalls;
@@ -134,32 +134,37 @@ public class Map implements GhostDatabase{
             }
         }
 
+        if (check(position)) return false;
+        return true;
+
+
+    }
+
+    private boolean check(Position position) {
         for(CurvedUpperRightWall curvedUpperRightWall : curvedUpperRightWalls) {
             if (position.equals(curvedUpperRightWall.getPosition())) {
-                return false;
+                return true;
             }
         }
 
         for(CurvedDownLeftWall curvedDownLeftWall  : curvedDownLeftWalls) {
             if (position.equals(curvedDownLeftWall.getPosition())) {
-                return false;
+                return true;
             }
         }
 
         for(CurvedDownRightWall curvedDownRightWall  : curvedDownRightWalls) {
             if (position.equals(curvedDownRightWall.getPosition())) {
-                return false;
+                return true;
             }
         }
 
         for(CurvedUpperLeftWall curvedUpperLeftWall  : curvedUpperLeftWalls) {
             if (position.equals(curvedUpperLeftWall.getPosition())) {
-                return false;
+                return true;
             }
         }
-        return true;
-
-
+        return false;
     }
 
 
@@ -191,12 +196,44 @@ public class Map implements GhostDatabase{
         return walls;
     }
 
+    public Ghost getRedGhost() {
+        return redGhost;
+    }
+
+    public Ghost getPinkGhost() {
+        return pinkGhost;
+    }
+
+    public Ghost getCyanGhost() {
+        return cyanGhost;
+    }
+
+    public Ghost getOrangeGhost() {
+        return orangeGhost;
+    }
 
     private Ghost createGhosts() {
-        ArrayList<Ghost> ghosts = new ArrayList<>();
-        Ghost red = new Ghost(15, 14);
+        Ghost red = new Ghost(13, 11);
         return red;
     }
+
+    private Ghost createPinkGhost(){
+        Ghost pinkGhost = new Ghost(12, 11);
+        return pinkGhost;
+    }
+
+    private Ghost createCyanGhost(){
+        Ghost cyanGhost = new Ghost(11, 11);
+        return cyanGhost;
+    }
+
+    private Ghost createOrangeGhost(){
+        Ghost orangeGhost = new Ghost(10, 11);
+        return orangeGhost;
+    }
+
+
+
 
     public boolean canGhostMove(Position position) {
         for(Wall wall: walls) {
@@ -212,30 +249,20 @@ public class Map implements GhostDatabase{
             }
         }
 
-        for(CurvedUpperRightWall curvedUpperRightWall : curvedUpperRightWalls) {
-            if (position.equals(curvedUpperRightWall.getPosition())) {
-                return false;
-            }
-        }
-
-        for(CurvedDownLeftWall curvedDownLeftWall  : curvedDownLeftWalls) {
-            if (position.equals(curvedDownLeftWall.getPosition())) {
-                return false;
-            }
-        }
-
-        for(CurvedDownRightWall curvedDownRightWall  : curvedDownRightWalls) {
-            if (position.equals(curvedDownRightWall.getPosition())) {
-                return false;
-            }
-        }
-
-        for(CurvedUpperLeftWall curvedUpperLeftWall  : curvedUpperLeftWalls) {
-            if (position.equals(curvedUpperLeftWall.getPosition())) {
-                return false;
-            }
-        }
+        if (check(position)) return false;
         if(position.equals(redGhost.getPosition())) {
+            return false;
+        }
+
+        if(position.equals(pinkGhost.getPosition())) {
+            return false;
+        }
+
+        if(position.equals(cyanGhost.getPosition())) {
+            return false;
+        }
+
+        if(position.equals(orangeGhost.getPosition())) {
             return false;
         }
 
@@ -275,7 +302,7 @@ public class Map implements GhostDatabase{
         Random r = new Random();
 
         while(true) {
-            Position pRight = new Position(ghost.getPosition().getX() + r.nextInt(3)-1,ghost.getPosition().getY());
+            Position pRight = new Position(ghost.getPosition().getX() + r.nextInt(3) - 1,ghost.getPosition().getY());
             Position pLeft = new Position(ghost.getPosition().getX(), ghost.getPosition().getY() + r.nextInt(3) - 1);
             if(canGhostMove(pRight)) return pRight;
             if(canGhostMove(pLeft)) return pLeft;
@@ -284,15 +311,18 @@ public class Map implements GhostDatabase{
     }
 
     public void moveGhosts(){
-        for(Ghost ghost : ghosts){
-            ghost.setPosition(moveGhost(ghost));
-        }
+        redGhost.setPosition(moveGhost(redGhost));
+        pinkGhost.setPosition(moveGhost(pinkGhost));
+        orangeGhost.setPosition(moveGhost(orangeGhost));
+        cyanGhost.setPosition(moveGhost(cyanGhost));
+
     }
 
    public boolean checkGhostEatsPlayer() {
-        for(Ghost ghost : ghosts) {
-            if(ghost.getPosition().equals(player.getPosition())) return true;
-        }
+        if(redGhost.getPosition().equals(player.getPosition())) return true;
+        else if(orangeGhost.getPosition().equals(player.getPosition())) return true;
+        else if(cyanGhost.getPosition().equals(player.getPosition())) return true;
+        else if(pinkGhost.getPosition().equals(player.getPosition())) return true;
         return false;
    }
 
@@ -313,11 +343,6 @@ public class Map implements GhostDatabase{
     }
 
 
-    @Override
-    public List<Ghost> getAllGhosts() {
-        return ghosts;
-    }
-
     public String getScore(){
         return Integer.toString(score);
     }
@@ -329,13 +354,6 @@ public class Map implements GhostDatabase{
     public List<Pellet> getPellets() {
         return pellets;
     }
-
-
-    /*
-    public ArrayList<PowerUp> getPowerUps() {
-        return powerUps;
-    }
-    */
 
     public Player getPlayer() {
         return player;

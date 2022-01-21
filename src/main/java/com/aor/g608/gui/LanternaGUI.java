@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFrame;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -38,6 +39,8 @@ public class LanternaGUI implements GUI {
 
         terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);
         Terminal terminal = terminalFactory.createTerminal();
+        ((AWTTerminalFrame) terminal).setTitle("PACMAN");
+        ((AWTTerminalFrame) terminal).setIconImage(ImageIO.read(getClass().getClassLoader().getResource("pacman_icon.png")));
         ((AWTTerminalFrame) terminal).addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -166,18 +169,4 @@ public class LanternaGUI implements GUI {
         drawElement(color, position.getX(), position.getY(), "f");
     }
 
-    @Override
-    public void drawCyanGhost(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "i");
-    }
-
-    @Override
-    public void drawOrangeGhost(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "i");
-    }
-
-    @Override
-    public void drawPinkGhost(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "i");
-    }
 }
