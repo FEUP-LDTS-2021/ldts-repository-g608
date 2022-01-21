@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 public class Game {
     private Map map;
     private Menu menu;
-    private int width, height, fps = 10;
+    private int width, height, fps = 20;
     private boolean exit;
     private GUI gui;
     private State state;
@@ -28,7 +28,6 @@ public class Game {
     public static void main(String[] args) throws IOException, FontFormatException {
         getInstance().run();
     }
-
 
 
     public void setWidth(int width) {
@@ -63,7 +62,7 @@ public class Game {
         gui.clear();
         //final TextGraphics textGraphics = screen.newTextGraphics();
         //this.textGraphics = textGraphics;
-        //textGraphics.putString(2, 32, "SCORE: ", SGR.BOLD);
+        //textGraphics.putString(2, 32, "SCORE: ", SGR.BOLD)
         //textGraphics.putString( 2 + "SCORE: ".length(), 32, map.getScore(), SGR.BOLD);
         //textGraphics.setForegroundColor(TextColor.ANSI.DEFAULT);
         state.start(gui);

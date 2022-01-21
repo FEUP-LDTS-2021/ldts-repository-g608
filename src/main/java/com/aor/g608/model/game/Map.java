@@ -38,11 +38,11 @@ public class Map {
     private final FileReader file;
 
 
-    private int score = 0;
+    private Integer score = 0;
 
 
     public Map(int width, int height, GUI gui) throws FileNotFoundException {
-        player = new Player(12, 21);
+        player = new Player(14, 17);
         this.height = height;
         this.width = width;
         this.gui = gui;

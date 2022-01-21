@@ -3,6 +3,7 @@ package com.aor.g608.viewer.game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Element;
 import com.aor.g608.model.game.Map;
+import com.aor.g608.model.game.Position;
 import com.aor.g608.viewer.ghost.CyanGhostViewer;
 import com.aor.g608.viewer.ghost.GhostViewer;
 import com.aor.g608.viewer.ghost.OrangeGhostViewer;
@@ -36,6 +37,8 @@ public class MapViewer {
         drawElements(this.map.getCurvedUpperLeftWalls(), new CurvedUpperLeftWallViewer());
         drawElements(this.map.getCurvedDownRightWalls(), new CurvedDownRightWallViewer());
         drawElements(this.map.getCurvedUpperRightWalls(), new CurvedUpperRightWallViewer());
+        gui.drawText(new Position(2, 28), "SCORE", "#FFFFFF", "#000000");
+        gui.drawText(new Position(9, 28), map.getScore(), "#000000", "#FFFFFF");
     }
 
 

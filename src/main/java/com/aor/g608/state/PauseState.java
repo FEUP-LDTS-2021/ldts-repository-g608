@@ -6,7 +6,6 @@ import com.aor.g608.model.game.Map;
 import com.aor.g608.viewer.game.PauseViewer;
 import com.googlecode.lanterna.input.KeyStroke;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -30,10 +29,9 @@ public class PauseState implements State {
     public void processInput(KeyStroke keystroke) throws IOException {
         switch (keystroke.getKeyType()){
             case Escape -> game.setState(new PlayState(game));
-            case Character -> {
-                game.setMap(new Map(game.getWidth(), game.getHeight(), gui));
-                game.setState(new MenuState(game, gui, game.getMenu()));
-            }
+            case Enter, Character -> {
+                        game.setMap(new Map(game.getWidth(), game.getHeight(), gui));
+                        game.setState(new MenuState(game, gui, game.getMenu())); }
         }
     }
 }
