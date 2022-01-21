@@ -47,9 +47,9 @@ public class PlayState implements State{
     }
 
     @Override
-    public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
+    public void processInput(KeyStroke keystroke) throws IOException{
         if(keystroke.getKeyType() == KeyType.Escape)
-            game.setState(new MenuState(game, gui, menu));
+            game.setState(new PauseState(game));
 
         game.processKey(keystroke);
     }

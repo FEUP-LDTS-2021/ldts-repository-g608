@@ -90,7 +90,7 @@ public class Game {
                     //processKey(userInput);
                     if(userInput != null){
                         if (userInput.getKeyType() == KeyType.EOF){
-                            gui.close();
+                            gui.close(); break;
                         }
                         else state.processInput(userInput);
                     }
@@ -135,7 +135,7 @@ public class Game {
         return menu;
     }
 
-    public void restart(){
-
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

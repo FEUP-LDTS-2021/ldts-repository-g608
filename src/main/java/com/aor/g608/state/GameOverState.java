@@ -2,6 +2,7 @@ package com.aor.g608.state;
 
 import com.aor.g608.Game;
 import com.aor.g608.gui.GUI;
+import com.aor.g608.model.game.Map;
 import com.aor.g608.model.menu.Menu;
 import com.aor.g608.viewer.game.GameOverViewer;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -34,7 +35,10 @@ public class GameOverState implements State{
     @Override
     public void processInput(KeyStroke keystroke) throws IOException, URISyntaxException, FontFormatException {
         switch(keystroke.getKeyType()){
-            case Enter -> game.setState(new MenuState(game, gui, menu));
+            case Enter -> {
+                game.setMap(new Map(game.getWidth(), game.getHeight(), gui));
+                game.setState(new MenuState(game, gui, menu));
+            }
             case Escape -> gui.close();
         }
     }
