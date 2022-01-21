@@ -80,8 +80,6 @@ public class Game {
     public void run() throws IOException {
 
         int fps = 1000/this.fps;
-        MusicPlayer musicPlayer = new MusicPlayer();
-        musicPlayer.startMusic();
 
         try{
                 while(!exit){
@@ -138,6 +136,6 @@ public class Game {
     }
 
     public void restart(){
-        
+
     }
 }

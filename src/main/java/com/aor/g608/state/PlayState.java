@@ -5,6 +5,7 @@ import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Map;
 import com.aor.g608.model.menu.Menu;
 import com.aor.g608.viewer.game.MapViewer;
+import com.aor.g608.viewer.game.MusicPlayer;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -27,6 +28,8 @@ public class PlayState implements State{
         this.game = game;
         this.map = game.getMap();
         this.menu = game.getMenu();
+        MusicPlayer musicPlayer = new MusicPlayer("/music/Intro.wav");
+        musicPlayer.startMusic();
     }
 
     @Override

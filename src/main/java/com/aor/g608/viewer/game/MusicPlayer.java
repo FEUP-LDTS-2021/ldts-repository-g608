@@ -9,13 +9,13 @@ import java.io.File;
 public class MusicPlayer {
     private Clip backgroundMusic;
 
-    public MusicPlayer(){
-        this.backgroundMusic = loadMusic();
+    public MusicPlayer(String file){
+        this.backgroundMusic = loadMusic(file);
     }
 
-    private Clip loadMusic() throws NullPointerException{
+    private Clip loadMusic(String file) throws NullPointerException{
         try{
-            File musicFile = new File(MusicPlayer.class.getResource("/music/pacman_beginning.wav").getFile());
+            File musicFile = new File(MusicPlayer.class.getResource(file).getFile());
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicFile);
             Clip musicClip = AudioSystem.getClip();
             musicClip.open(audioInput);

@@ -9,6 +9,8 @@ import java.io.IOException;
 public class GameOverViewer extends Viewer {
     public GameOverViewer(GUI gui) {
         super(gui);
+        MusicPlayer musicPlayer = new MusicPlayer("/music/Pacman-death.wav");
+        musicPlayer.startMusic();
     }
 
     @Override

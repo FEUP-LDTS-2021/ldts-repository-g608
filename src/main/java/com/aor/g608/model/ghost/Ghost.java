@@ -1,6 +1,7 @@
-package com.aor.g608.model.game;
+package com.aor.g608.model.ghost;
 
 import com.aor.g608.gui.GUI;
+import com.aor.g608.model.game.Element;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;

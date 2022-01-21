@@ -1,25 +1,25 @@
-cffffffffffffffffffffffffffd
-h-...........gh...........-g
-h.ceed.ceeed.gh.ceeed.ceed.g
-h.g  h.g   h.gh.g   h.g  h.g
-h.affb.afffb.ab.afffb.affb.g
-h..........................g
-h.ceed.cd.ceeeeeed.cd.ceed.g
-h.affb.gh.affdcffb.gh.affb.g
-h......gh....gh....gh......g
-affffd.gaeed gh ceebh.ceeeeb
-     h.gcffb ab affdg.g
-     h.              .g
-     h.gh          gh.g
-cfffff.ab fffdcfff ab.affffd
-h............gh............g
-h.ceed.ceeed.gh.ceeed.ceed.g
-h.afdh.afffb.ab.afffb.gcfb.g
-h...gh.......  .......gh...g
-aed.gh.cd.ceeeeeed.cd.gh.ceb
-cfb.ab.gh.affdcffb.gh.ab.afd
-h......gh....gh....gh......g
-h.ceeeebaeed.gh.ceebaeeeed.g
-h.affffffffb.ab.affffffffb.g
-h-........................-g
+deeeeeeeeeeeecdeeeeeeeeeeeec
+f............ff............f
+f.deec.deeec.ff.deeec.deec.f
+f.f  f.f   f.ff.f   f.f  f.f
+f.aeeb.aeeeb.ab.aeeeb.aeeb.f
+f..........................f
+f.deec.dc.deeeeeec.dc.deec.f
+f.aeeb.ff.aeecdeeb.ff.aeeb.f
+f......ff....ff....ff......f
+aeeeec.faeec ff deebf.deeeeb
+     f.aeeeb ab aeeeb.f
+     f.              .f
+     f.deeeeeeeeeeeec.f
+deeeeb.aeeeeecdeeeeeb.aeeeec
+f............ff............f
+f.deec.deeec.ff.deeec.deec.f
+f.aecf.aeeeb.ab.aeeeb.fdeb.f
+f...ff.......  .......ff...f
+aec.ff.dc.deeeeeec.dc.ff.deb
+deb.ab.ff.aeecdeeb.ff.ab.aec
+f......ff....ff....ff......f
+f.deeeebaeec.ff.deebaeeeec.f
+f.aeeeeeeeeb.ab.aeeeeeeeeb.f
+f..........................f
 aeeeeeeeeeeeeeeeeeeeeeeeeeeb

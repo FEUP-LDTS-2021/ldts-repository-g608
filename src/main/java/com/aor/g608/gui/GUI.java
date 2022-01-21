@@ -32,8 +32,6 @@ public interface GUI {
 
     void drawText(Position position, String text, String textColor, String backgroundColor);
 
-    void drawPowerUp(Position position, String color);
-
     void drawArrow(Position position, String arrowColor);
 
     void drawCurvedUpperRightWall(Position position, String color);
@@ -42,14 +40,15 @@ public interface GUI {
 
     void drawCurvedDownLeftWall(Position position, String color);
 
-    void drawLeftVerticalWall(Position position, String color);
-
-    void drawRightVerticalWall(Position position, String color);
-
-    void drawDownHorizontalWall(Position position, String color);
+    void drawVerticalWall(Position position, String color);
 
     void drawCurvedDownRightWall(Position position, String color);
 
+    void drawCyanGhost(Position position, String color);
+    
+    void drawOrangeGhost(Position position, String color);
+    
+    void drawPinkGhost(Position position, String color);
 
 
 }

@@ -2,10 +2,15 @@ package com.aor.g608.model.game;
 
 import com.aor.g608.gui.FileReader;
 import com.aor.g608.gui.GUI;
+import com.aor.g608.model.ghost.CyanGhost;
+import com.aor.g608.model.ghost.Ghost;
+import com.aor.g608.model.ghost.OrangeGhost;
+import com.aor.g608.model.ghost.PinkGhost;
 import com.aor.g608.model.item.Pellet;
 import com.aor.g608.model.item.PowerUp;
+import com.aor.g608.model.wall.*;
 import com.aor.g608.viewer.game.MapViewer;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.aor.g608.viewer.game.MusicPlayer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,9 +24,17 @@ public class Map implements GhostDatabase{
     private final int width;
     private GhostDatabase database;
     private ArrayList<Wall> walls;
-    private ArrayList<Ghost> ghosts;
+    private Ghost redGhost;
+    private PinkGhost pinkGhost;
+    private CyanGhost cyanGhost;
+    private OrangeGhost orangeGhost;
     private ArrayList<PowerUp> powerUps;
     private ArrayList<Pellet> pellets;
+    private ArrayList<VerticalWall> verticalWalls;
+    private ArrayList<CurvedDownRightWall> curvedDownRightWalls;
+    private ArrayList<CurvedDownLeftWall> curvedDownLeftWalls;
+    private ArrayList<CurvedUpperLeftWall> curvedUpperLeftWalls;
+    private ArrayList<CurvedUpperRightWall> curvedUpperRightWalls;
     private final GUI gui;
     private final Player player;
     private final MapViewer mapViewer;
@@ -47,6 +60,11 @@ public class Map implements GhostDatabase{
 
     public void createMap(){
         ArrayList<Wall> walls = new ArrayList<>();
+        ArrayList<CurvedDownRightWall> curvedDownRightWalls = new ArrayList<>();
+        ArrayList<CurvedDownLeftWall> curvedDownLeftWalls = new ArrayList<>();
+        ArrayList<CurvedUpperLeftWall> curvedUpperLeftWalls = new ArrayList<>();
+        ArrayList<CurvedUpperRightWall> curvedUpperRightWalls = new ArrayList<>();
+        ArrayList<VerticalWall> verticalWalls = new ArrayList<>();
         ArrayList<Pellet> pellets = new ArrayList<>();
         ArrayList<PowerUp> powerUps = new ArrayList<>();
 
@@ -60,14 +78,17 @@ public class Map implements GhostDatabase{
             for(int col = 0; col < line.length(); col++){
                 switch(ch[col]){
                     case 'a':
+                        curvedDownLeftWalls.add(new CurvedDownLeftWall(col, row)); break;
                     case 'b':
+                        curvedDownRightWalls.add(new CurvedDownRightWall(col, row)); break;
                     case 'c':
+                        curvedUpperLeftWalls.add(new CurvedUpperLeftWall(col, row)); break;
                     case 'd':
+                        curvedUpperRightWalls.add(new CurvedUpperRightWall(col, row)); break;
                     case 'e':
-                    case 'f':
-                    case 'g':
-                    case 'h':
                         walls.add(new Wall(col, row)); break;
+                    case 'f':
+                        verticalWalls.add(new VerticalWall(col, row)); break;
                     case '.':
                         pellets.add(new Pellet(col, row)); break;
                     case '-':
@@ -78,7 +99,12 @@ public class Map implements GhostDatabase{
         this.walls = walls;
         this.pellets = pellets;
         this.powerUps = powerUps;
-        this.ghosts = createGhosts();
+        this.redGhost = createGhosts();
+        this.curvedUpperRightWalls = curvedUpperRightWalls;
+        this.curvedDownRightWalls = curvedDownRightWalls;
+        this.curvedUpperLeftWalls = curvedUpperLeftWalls;
+        this.curvedDownLeftWalls = curvedDownLeftWalls;
+        this.verticalWalls = verticalWalls;
     }
 
     public void GhostFinder(GhostDatabase database){
@@ -96,9 +122,44 @@ public class Map implements GhostDatabase{
     }
 
     public boolean canPlayerMove(Position position) {
-        return (position.getX() >= 0 && position.getX() < width) &&
-                (position.getY() >= 0 && position.getY() < height) &&
-                !walls.contains(new Wall(position.getX(), position.getY()));
+        for(VerticalWall verticalWall : verticalWalls) {
+            if (position.equals(verticalWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(Wall wall: walls) {
+            if (position.equals(wall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedUpperRightWall curvedUpperRightWall : curvedUpperRightWalls) {
+            if (position.equals(curvedUpperRightWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedDownLeftWall curvedDownLeftWall  : curvedDownLeftWalls) {
+            if (position.equals(curvedDownLeftWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedDownRightWall curvedDownRightWall  : curvedDownRightWalls) {
+            if (position.equals(curvedDownRightWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedUpperLeftWall curvedUpperLeftWall  : curvedUpperLeftWalls) {
+            if (position.equals(curvedUpperLeftWall.getPosition())) {
+                return false;
+            }
+        }
+        return true;
+
+
     }
 
 
@@ -108,7 +169,6 @@ public class Map implements GhostDatabase{
             retrievePellets();
         }
     }
-
 
     public Position moveUp() {
         return new Position(player.getPosition().getX(), player.getPosition().getY() - 1);
@@ -132,11 +192,10 @@ public class Map implements GhostDatabase{
     }
 
 
-    private ArrayList<Ghost> createGhosts() {
+    private Ghost createGhosts() {
         ArrayList<Ghost> ghosts = new ArrayList<>();
         Ghost red = new Ghost(15, 14);
-        ghosts.add(red);
-        return ghosts;
+        return red;
     }
 
     public boolean canGhostMove(Position position) {
@@ -144,14 +203,45 @@ public class Map implements GhostDatabase{
             if (position.equals(wall.getPosition())) {
                 return false;
             }
+
         }
-        for(Ghost ghost : ghosts) {
-            if(position.equals(ghost.getPosition())) {
+
+        for(VerticalWall verticalWall : verticalWalls) {
+            if (position.equals(verticalWall.getPosition())) {
                 return false;
             }
         }
+
+        for(CurvedUpperRightWall curvedUpperRightWall : curvedUpperRightWalls) {
+            if (position.equals(curvedUpperRightWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedDownLeftWall curvedDownLeftWall  : curvedDownLeftWalls) {
+            if (position.equals(curvedDownLeftWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedDownRightWall curvedDownRightWall  : curvedDownRightWalls) {
+            if (position.equals(curvedDownRightWall.getPosition())) {
+                return false;
+            }
+        }
+
+        for(CurvedUpperLeftWall curvedUpperLeftWall  : curvedUpperLeftWalls) {
+            if (position.equals(curvedUpperLeftWall.getPosition())) {
+                return false;
+            }
+        }
+        if(position.equals(redGhost.getPosition())) {
+            return false;
+        }
+
         return true;
     }
+
     /*
     public Position moveGhost(Ghost ghost) {
         Position p1, p2;
@@ -207,6 +297,8 @@ public class Map implements GhostDatabase{
    }
 
     private void retrievePellets() {
+        MusicPlayer musicPlayer = new MusicPlayer("/music/Chomp.wav");
+        musicPlayer.startMusic();
         for (Pellet pellet : pellets)
             if (player.getPosition().equals(pellet.getPosition())) {
                 pellets.remove(pellet);
@@ -220,14 +312,6 @@ public class Map implements GhostDatabase{
         gui.refresh();
     }
 
-    public boolean retrievePowerUps() {
-        for(PowerUp powerUp : powerUps)
-            if(player.getPosition().equals(powerUp.getPosition())){
-                powerUps.remove(powerUp);
-                return true;
-            }
-        return false;
-    }
 
     @Override
     public List<Ghost> getAllGhosts() {
@@ -246,16 +330,35 @@ public class Map implements GhostDatabase{
         return pellets;
     }
 
-    public ArrayList<Ghost> getGhosts() {
-        return ghosts;
-    }
 
+    /*
     public ArrayList<PowerUp> getPowerUps() {
         return powerUps;
     }
+    */
 
     public Player getPlayer() {
         return player;
+    }
+
+    public ArrayList<VerticalWall> getVerticalWalls() {
+        return verticalWalls;
+    }
+
+    public ArrayList<CurvedDownRightWall> getCurvedDownRightWalls() {
+        return curvedDownRightWalls;
+    }
+
+    public ArrayList<CurvedDownLeftWall> getCurvedDownLeftWalls() {
+        return curvedDownLeftWalls;
+    }
+
+    public ArrayList<CurvedUpperLeftWall> getCurvedUpperLeftWalls() {
+        return curvedUpperLeftWalls;
+    }
+
+    public ArrayList<CurvedUpperRightWall> getCurvedUpperRightWalls() {
+        return curvedUpperRightWalls;
     }
 }
 

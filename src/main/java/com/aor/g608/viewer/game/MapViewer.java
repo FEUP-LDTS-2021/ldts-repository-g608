@@ -3,7 +3,7 @@ package com.aor.g608.viewer.game;
 import com.aor.g608.gui.GUI;
 import com.aor.g608.model.game.Element;
 import com.aor.g608.model.game.Map;
-import com.aor.g608.viewer.wall.WallViewer;
+import com.aor.g608.viewer.wall.*;
 
 import java.util.List;
 
@@ -24,7 +24,11 @@ public class MapViewer {
         drawElements(this.map.getPellets(), new PelletViewer());
         drawElements(this.map.getGhosts(), new GhostViewer());
         drawElement(this.map.getPlayer(), new PlayerViewer());
-        //drawElements(this.map.getPlayer(), new PlayerVi);
+        drawElements(this.map.getCurvedDownLeftWalls(), new CurvedDownLeftWallViewer());
+        drawElements(this.map.getVerticalWalls(), new VerticalWallViewer());
+        drawElements(this.map.getCurvedUpperLeftWalls(), new CurvedUpperLeftWallViewer());
+        drawElements(this.map.getCurvedDownRightWalls(), new CurvedDownRightWallViewer());
+        drawElements(this.map.getCurvedUpperRightWalls(), new CurvedUpperRightWallViewer());
     }
 
 

@@ -1,9 +1,6 @@
-package com.aor.g608.model.game;
+package com.aor.g608.model.wall;
 
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
+import com.aor.g608.model.game.Element;
 
 public class Wall extends Element {
 

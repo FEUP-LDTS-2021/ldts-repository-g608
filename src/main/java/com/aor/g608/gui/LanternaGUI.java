@@ -127,12 +127,6 @@ public class LanternaGUI implements GUI {
         drawElement(color, position.getX(), position.getY(), ".");
     }
 
-
-    @Override
-    public void drawPowerUp(Position position, String color) {
-        drawElement(color, position.getX(), position.getY(), "-");
-    }
-
     @Override
     public void drawText(Position position, String text, String textColor, String backgroundColor) {
         TextGraphics textGraphics = screen.newTextGraphics();
@@ -168,17 +162,22 @@ public class LanternaGUI implements GUI {
     }
 
     @Override
-    public void drawLeftVerticalWall(Position position, String color){
-        drawElement(color, position.getX(), position.getY(), "g");
-    }
-
-    @Override
-    public void drawRightVerticalWall(Position position, String color){
-        drawElement(color, position.getX(), position.getY(), "h");
-    }
-
-    @Override
-    public void drawDownHorizontalWall(Position position, String color){
+    public void drawVerticalWall(Position position, String color){
         drawElement(color, position.getX(), position.getY(), "f");
+    }
+
+    @Override
+    public void drawCyanGhost(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "i");
+    }
+
+    @Override
+    public void drawOrangeGhost(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "i");
+    }
+
+    @Override
+    public void drawPinkGhost(Position position, String color) {
+        drawElement(color, position.getX(), position.getY(), "i");
     }
 }
