@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
 public class Game {
     private Map map;
     private Menu menu;
-    private int width, height, fps = 20;
+    private int width, height, fps = 18;
     private boolean exit;
     private GUI gui;
     private State state;

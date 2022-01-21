@@ -20,7 +20,7 @@ public class MenuViewer extends Viewer {
         gui.drawText(new Position(11,14),"PLAY","#000000","#FFFFFF");
         gui.drawText(new Position(7,16),"INSTRUCTIONS","#000000","#FFFFFF");
         gui.drawText(new Position(11,18),"EXIT","#000000","#FFFFFF");
-        gui.drawText(new Position(1,23),"ALL RIGHTS RESERVED. 2022","#000000","#FFFFFF");
+        gui.drawText(new Position(7,23),"-G0608 2022-","#000000","#FFFFFF");
         drawArrow(gui, menu);
         gui.refresh();
     }

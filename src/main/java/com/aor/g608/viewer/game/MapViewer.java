@@ -37,8 +37,8 @@ public class MapViewer {
         drawElements(this.map.getCurvedUpperLeftWalls(), new CurvedUpperLeftWallViewer());
         drawElements(this.map.getCurvedDownRightWalls(), new CurvedDownRightWallViewer());
         drawElements(this.map.getCurvedUpperRightWalls(), new CurvedUpperRightWallViewer());
-        gui.drawText(new Position(2, 28), "SCORE", "#FFFFFF", "#000000");
-        gui.drawText(new Position(9, 28), map.getScore(), "#000000", "#FFFFFF");
+        gui.drawText(new Position(2, 28), "SCORE", "#000000", "#FFFFFF");
+        gui.drawText(new Position(8, 28), map.getScore(), "#000000", "#FFFFFF");
     }
 
 

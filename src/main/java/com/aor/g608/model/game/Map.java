@@ -213,17 +213,17 @@ public class Map {
     }
 
     private Ghost createGhosts() {
-        Ghost red = new Ghost(13, 11);
+        Ghost red = new Ghost(16, 11);
         return red;
     }
 
     private Ghost createPinkGhost(){
-        Ghost pinkGhost = new Ghost(12, 11);
+        Ghost pinkGhost = new Ghost(14, 11);
         return pinkGhost;
     }
 
     private Ghost createCyanGhost(){
-        Ghost cyanGhost = new Ghost(11, 11);
+        Ghost cyanGhost = new Ghost(12, 11);
         return cyanGhost;
     }
 
@@ -306,6 +306,7 @@ public class Map {
             Position pLeft = new Position(ghost.getPosition().getX(), ghost.getPosition().getY() + r.nextInt(3) - 1);
             if(canGhostMove(pRight)) return pRight;
             if(canGhostMove(pLeft)) return pLeft;
+            return ghost.getPosition();
         }
 
     }
