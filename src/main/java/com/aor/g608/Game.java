@@ -1,36 +1,35 @@
 package com.aor.g608;
 
+import com.aor.g608.gui.GUI;
 import com.aor.g608.gui.LanternaGUI;
 import com.aor.g608.model.game.Map;
-import com.aor.g608.model.menu.MenuPlayer;
+import com.aor.g608.state.MenuState;
+import com.aor.g608.state.State;
+import com.aor.g608.model.menu.Menu;
 import com.aor.g608.viewer.game.MusicPlayer;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-
-import com.googlecode.lanterna.TerminalSize;
-
 
 import java.awt.*;
 import java.io.IOException;
-
+import java.net.URISyntaxException;
 
 public class Game {
-    private Screen screen;
     private Map map;
-    private Player player;
-    private LanternaGUI lanternaGUI;
-    private MenuPlayer menuPlayer;
-    private int width, height;
+    private Menu menu;
+    private int width, height, fps = 10;
+    private boolean exit;
+    private GUI gui;
+    private State state;
+
+
+    private static Game singleton = null;
 
     public static void main(String[] args) throws IOException, FontFormatException {
-        Game game = new Game(60, 20);
-        game.run();
-        //LanternaGUI lanternaGUI = new LanternaGUI();
+        getInstance().run();
     }
+
+
 
     public void setWidth(int width) {
         this.width = width;
@@ -48,54 +47,95 @@ public class Game {
         return height;
     }
 
-    public Game(int width, int height) throws IOException {
+    public Game(int width, int height) throws IOException, FontFormatException {
+            this.exit = false;
             this.width = width;
             this.height = height;
-            TerminalSize terminalSize = new TerminalSize(width, height);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
-            menuPlayer = new MenuPlayer();
-            map = new Map(width, height);
+            gui = new LanternaGUI(width, height);
+            menu = new Menu(gui);
+            state = new MenuState(this, gui, menu);
+            map = new Map(width, height, gui);
+
+
         }
 
-        private void draw() throws IOException {
-            screen.clear();
-            //menuPlayer.draw(screen.newTextGraphics());
-            map.draw(screen.newTextGraphics());
-            screen.refresh();
-        }
+    public void draw() throws IOException{
+        gui.clear();
+        //final TextGraphics textGraphics = screen.newTextGraphics();
+        //this.textGraphics = textGraphics;
+        //textGraphics.putString(2, 32, "SCORE: ", SGR.BOLD);
+        //textGraphics.putString( 2 + "SCORE: ".length(), 32, map.getScore(), SGR.BOLD);
+        //textGraphics.setForegroundColor(TextColor.ANSI.DEFAULT);
+        state.start(gui);
+        gui.refresh();
+    }
 
-        public void run() throws IOException {
-        MusicPlayer musicPlayer = new MusicPlayer();
-        musicPlayer.startMusic();
+    public void menuDraw() throws IOException {
+        gui.clear();
+        menu.draw();
+        gui.refresh();
+    }
+
+
+    public void run() throws IOException {
+
+        int fps = 1000/this.fps;
+
         try{
-                while(true){
-                    draw();
-                    KeyStroke userInput = screen.readInput();
+                while(!exit){
+                    long startTime = System.currentTimeMillis();
+                    state.start(gui);
+                    KeyStroke userInput = gui.getScreen().pollInput();
 
-                    processKey(userInput);
+                    //processKey(userInput);
+                    if(userInput != null){
+                        if (userInput.getKeyType() == KeyType.EOF){
+                            gui.close();
+                        }
+                        else state.processInput(userInput);
+                    }
 
-                    if (userInput.getKeyType() == KeyType.EOF)
-                        break;
-
-
-                }
-            } catch (IOException e){
+                    long elapsedTime = System.currentTimeMillis() - startTime;
+                    long sleepTime = fps - elapsedTime;
+                    if(sleepTime > 0 ) Thread.sleep(sleepTime);
+                     }
+                } catch (InterruptedException | IOException | URISyntaxException | FontFormatException e){
                 e.printStackTrace();
             }
         }
 
-        private void processKey(KeyStroke key) throws IOException{
+    public void processKey(KeyStroke key) throws IOException {
             System.out.println(key);
             switch(key.getKeyType()){
-                case ArrowUp -> map.movePlayer(map.moveUp());
-                case ArrowDown -> map.movePlayer(map.moveDown());
-                case ArrowLeft -> map.movePlayer(map.moveLeft());
-                case ArrowRight -> map.movePlayer(map.moveRight());
+                case ArrowUp -> map.movePlayer(map.getPlayer().moveUp());
+                case ArrowDown -> map.movePlayer(map.getPlayer().moveDown());
+                case ArrowLeft -> map.movePlayer(map.getPlayer().moveLeft());
+                case ArrowRight -> map.movePlayer(map.getPlayer().moveRight());
             }
         }
+
+    public static Game getInstance() throws IOException, FontFormatException {
+        singleton = new Game(28, 31);
+        return singleton;
     }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public GUI getGui() {
+        return gui;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void restart(){
+
+    }
+}

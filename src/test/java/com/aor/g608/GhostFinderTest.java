@@ -1,7 +1,7 @@
 package com.aor.g608;
 
-import com.aor.g608.model.Position;
-import com.aor.g608.model.game.Ghost;
+import com.aor.g608.model.game.Position;
+import com.aor.g608.model.ghost.Ghost;
 import com.aor.g608.model.game.GhostDatabase;
 import com.aor.g608.model.game.Map;
 import org.junit.jupiter.api.Assertions;
@@ -18,10 +18,16 @@ public class GhostFinderTest {
     @BeforeEach
     public void setUp() throws Exception {
         List<Ghost> ghosts = new ArrayList<>();
-        ghosts.add(new Ghost(1, 5, "Orange"));
-        ghosts.add(new Ghost(1, 4, "Pink"));
-        ghosts.add(new Ghost(2, 6, "Cyan"));
-        ghosts.add(new Ghost(5, 7, "Red"));
+        Position ghost1Position = new Position(1, 5);
+        Position ghost2Position = new Position(1, 4);
+        Position ghost3Position = new Position(2, 6);
+        Position ghost4Position = new Position(5, 7);
+
+
+        ghosts.add(new Ghost(ghost1Position, "Orange"));
+        ghosts.add(new Ghost(ghost2Position, "Pink"));
+        ghosts.add(new Ghost(ghost3Position, "Cyan"));
+        ghosts.add(new Ghost(ghost4Position, "Red"));
 
         stubGhostDatabase = Mockito.mock(GhostDatabase.class);
         Mockito.when(stubGhostDatabase.getAllGhosts()).thenReturn(ghosts);
