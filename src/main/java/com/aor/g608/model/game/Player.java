@@ -1,11 +1,5 @@
 package com.aor.g608.model.game;
 
-import com.aor.g608.gui.GUI;
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
-
 public class Player extends Element {
 
     public Player(int x, int y) {

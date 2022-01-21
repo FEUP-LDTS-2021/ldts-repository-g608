@@ -6,7 +6,6 @@ import com.aor.g608.model.game.Map;
 import com.aor.g608.state.MenuState;
 import com.aor.g608.state.State;
 import com.aor.g608.model.menu.Menu;
-import com.aor.g608.viewer.game.MusicPlayer;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -16,23 +15,17 @@ import java.net.URISyntaxException;
 
 public class Game {
     private Map map;
-    private Menu menu;
-    private int width, height, fps = 18;
-    private boolean exit;
-    private GUI gui;
+    private final Menu menu;
+    private final int width;
+    private int height;
+    private final GUI gui;
     private State state;
 
-
-    private static Game singleton = null;
 
     public static void main(String[] args) throws IOException, FontFormatException {
         getInstance().run();
     }
 
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
 
     public void setHeight(int height) {
         this.height = height;
@@ -47,7 +40,6 @@ public class Game {
     }
 
     public Game(int width, int height) throws IOException, FontFormatException {
-            this.exit = false;
             this.width = width;
             this.height = height;
             gui = new LanternaGUI(width, height);
@@ -60,28 +52,18 @@ public class Game {
 
     public void draw() throws IOException{
         gui.clear();
-        //final TextGraphics textGraphics = screen.newTextGraphics();
-        //this.textGraphics = textGraphics;
-        //textGraphics.putString(2, 32, "SCORE: ", SGR.BOLD)
-        //textGraphics.putString( 2 + "SCORE: ".length(), 32, map.getScore(), SGR.BOLD);
-        //textGraphics.setForegroundColor(TextColor.ANSI.DEFAULT);
         state.start(gui);
         gui.refresh();
     }
 
-    public void menuDraw() throws IOException {
-        gui.clear();
-        menu.draw();
-        gui.refresh();
-    }
 
+    public void run() {
 
-    public void run() throws IOException {
-
-        int fps = 1000/this.fps;
+        int fps1 = 18;
+        int fps = 1000/ fps1;
 
         try{
-                while(!exit){
+                while(true){
                     long startTime = System.currentTimeMillis();
                     state.start(gui);
                     KeyStroke userInput = gui.getScreen().pollInput();
@@ -103,7 +85,7 @@ public class Game {
             }
         }
 
-    public void processKey(KeyStroke key) throws IOException {
+    public void processKey(KeyStroke key) {
             System.out.println(key);
             switch(key.getKeyType()){
                 case ArrowUp -> map.movePlayer(map.getPlayer().moveUp());
@@ -114,8 +96,7 @@ public class Game {
         }
 
     public static Game getInstance() throws IOException, FontFormatException {
-        singleton = new Game(28, 31);
-        return singleton;
+        return new Game(28, 31);
     }
 
     public void setState(State state) {

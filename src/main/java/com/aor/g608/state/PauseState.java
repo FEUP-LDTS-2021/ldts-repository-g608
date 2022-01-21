@@ -7,12 +7,11 @@ import com.aor.g608.viewer.game.PauseViewer;
 import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 public class PauseState implements State {
-    private Game game;
-    private GUI gui;
-    private PauseViewer pauseViewer;
+    private final Game game;
+    private final GUI gui;
+    private final PauseViewer pauseViewer;
 
     public PauseState(Game game) {
         this.game = game;

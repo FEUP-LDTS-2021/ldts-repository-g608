@@ -3,13 +3,6 @@ package com.aor.g608.model.game;
 public class Position {
     private int x, y;
 
-    public enum Direction {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT
-    }
-
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
