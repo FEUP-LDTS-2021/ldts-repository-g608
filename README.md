@@ -2,7 +2,7 @@
 
 ## Game Description
 
-Our game is based on a game called Pacman, originally created by ®NAMCO, the player is running to get pellets in a maze while ghosts are chasing him. If he gets all the pellets, he wins and if the ghosts catches him he loses. The player can eat a special pelllet that works like a powerup and lets the player eat the ghosts to earn extra points and facilitate catching all the pellets.
+Our game is based on a game called Pacman, originally created by ®NAMCO. Basically, the player is running to get all pellets in a maze while ghosts are chasing him. He wins when there is no more pellet left. If a ghost catches him, he loses.
 
 This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
 
