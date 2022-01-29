@@ -12,11 +12,11 @@ This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André M
 - **Buttons** - Functional and interactive buttons.
 - **Keyboard control** - The keyboard inputs are received through the respective events and interpreted according to the current game state.
 - **Player control** - The player moves with the keyboard control.
-- **Collisions detection** - Collisions between different objects are verified. (Ex: Player, Enemies and the Map Walls).
+- **Collisions detection** - Collisions between different objects are verified. (Ex: Player, Ghosts and the Map Walls).
 - **Score System** - When the player eats pellets the score increases.
 - **Animations** - We incorporated animations for the player and the ghosts and designed the map with a personalized handmade font.
-- **Music and Sound Effects** - The game as theme music for every action. (Start of the Game, Player Moving Eating Pellets, Game Over)
-- **Enemies independent Movement** - the enemies move without the need of any player input.
+- **Music and Sound Effects** - The game as theme music for every action. (Ex: Start of the Game, Player Moving Eating Pellets, Game Over)
+- **Enemies independent Movement** - The ghosts move without the need of any player input.
 
 ## Planned Features
 
