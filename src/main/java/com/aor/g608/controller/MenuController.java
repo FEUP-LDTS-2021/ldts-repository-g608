@@ -11,7 +11,9 @@ import com.googlecode.lanterna.input.KeyStroke;
 import java.io.IOException;
 
 
-public class MenuController extends Controller<Menu>{
+
+
+public class MenuController extends Controller<Menu> {
 
     public MenuController(Menu model) {
         super(model);
@@ -25,3 +27,4 @@ public class MenuController extends Controller<Menu>{
         }
     }
 }
+

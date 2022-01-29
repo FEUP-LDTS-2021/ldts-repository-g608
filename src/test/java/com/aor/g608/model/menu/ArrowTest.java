@@ -1,4 +1,4 @@
 package com.aor.g608.model.menu;
 
-public class GameOver {
+public class ArrowTest {
 }

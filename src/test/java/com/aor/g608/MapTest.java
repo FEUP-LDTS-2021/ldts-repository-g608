@@ -1,44 +1,36 @@
 package com.aor.g608;
 
-import com.aor.g608.model.game.Position;
 import com.aor.g608.model.game.Map;
-import com.aor.g608.model.wall.Wall;
-import org.junit.jupiter.api.Test;
+import com.aor.g608.model.game.Position;
+import net.jqwik.api.ForAll;
+import net.jqwik.api.Property;
+import java.io.FileNotFoundException;
+import net.jqwik.api.constraints.IntRange;
+import net.jqwik.api.constraints.Positive;
 
-import static groovy.test.GroovyTestCase.assertEquals;
 
 public class MapTest {
 
-    @Test
-    public void add(){
+    @Property
+    public void testMapBounds(@ForAll @IntRange(min = 1, max = 100) int width, @ForAll @IntRange(min = 1, max = 100) int height, @ForAll @Positive int x, @ForAll @Positive int y) throws FileNotFoundException {
+        Map map = new Map(width, height, null);
 
-        Position wall1Position = new Position(0,0);
-        Position wall2Position = new Position(1,1);
-        Position wall3Position = new Position(2,2);
-        Position wall4Position = new Position(3,3);
-        Position wall5Position = new Position(4,4);
-        Position wall6Position = new Position(5,5);
-
-
-
-        Map map = new Map(12, 43);
-        Wall wall1 = new Wall(wall1Position, "blue");
-        Wall wall2 = new Wall(wall2Position, "blue");
-        Wall wall3 = new Wall(wall3Position, "blue");
-        Wall wall4 = new Wall(wall4Position, "blue");
-        Wall wall5 = new Wall(wall5Position, "blue");
-        Wall wall6 = new Wall(wall6Position, "blue");
-
-
-        map.addWall(wall1);
-        map.addWall(wall2);
-        map.addWall(wall3);
-        map.addWall(wall4);
-        map.addWall(wall5);
-        map.addWall(wall6);
-
-        assertEquals(6, map.getWalls().size());
-
-
+        assert (x >= 0 || !map.isInBounds(new Position(x, y)));
+        assert (y >= 0 || !map.isInBounds(new Position(x, y)));
+        assert (x < map.getWidth() || !map.isInBounds(new Position(x, y)));
+        assert (y < map.getHeight() || !map.isInBounds(new Position(x, y)));
     }
 }
+
+
+//@Property
+//public void canPlayerMove(@ForAll Position position) {
+//       assert(canPlayerMove(position))}
+//      }
+
+//@Property
+//public void playerpositionmoveup(@ForAll Position position) {
+//        assert(position.getX() > 0);
+//        assert(position.getY() > 0);
+//}
+//}

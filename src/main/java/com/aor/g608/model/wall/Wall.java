@@ -14,5 +14,4 @@ public class Wall extends Element {
         return(this == o || this.getPosition().equals(((Wall) o).getPosition()));
     }
 
-
 }
