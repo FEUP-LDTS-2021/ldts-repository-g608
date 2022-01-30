@@ -17,7 +17,6 @@ import java.util.Random;
 
 public class Map {
 
-    private GhostDatabase database;
     private ArrayList<Wall> walls;
     private Ghost redGhost;
     private Ghost pinkGhost;
@@ -31,6 +30,7 @@ public class Map {
     private ArrayList<CurvedUpperRightWall> curvedUpperRightWalls;
     private final GUI gui;
     private final Player player;
+    private final int width, height;
     private final MapViewer mapViewer;
     private final FileReader file;
 
@@ -40,6 +40,8 @@ public class Map {
 
     public Map(int width, int height, GUI gui) throws FileNotFoundException {
         player = new Player(14, 17);
+        this.width = width;
+        this.height = height;
         this.gui = gui;
 
         file = new FileReader("src/main/resources/maps/map.txt");
@@ -151,6 +153,10 @@ public class Map {
         return walls;
     }
 
+    public int getWidth() {return width;}
+
+    public int getHeight() {return height; }
+
     public Ghost getRedGhost() {
         return redGhost;
     }
@@ -244,11 +250,11 @@ public class Map {
    }
 
     private void retrievePellets() {
-        MusicPlayer musicPlayer = new MusicPlayer("/music/Chomp.wav");
-        musicPlayer.startMusic();
         for (Pellet pellet : pellets)
             if (player.getPosition().equals(pellet.getPosition())) {
                 pellets.remove(pellet);
+                MusicPlayer musicPlayer = new MusicPlayer("/music/Chomp.wav");
+                musicPlayer.startMusic();
                 setScore(score + 10);
                 break;
             }
@@ -295,6 +301,13 @@ public class Map {
     public ArrayList<CurvedUpperRightWall> getCurvedUpperRightWalls() {
         return curvedUpperRightWalls;
     }
+
+    public boolean isInBounds(Position position){
+        if(position.getY() < width && position.getX() < height) return true;
+        return false;
+    }
 }
+
+
 
 

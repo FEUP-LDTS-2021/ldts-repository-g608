@@ -4,7 +4,7 @@
 
 Our game is based on a game called Pacman, originally created by NAMCO. Basically, the player is running to get all pellets in a maze while ghosts are chasing him. He wins when there is no more pellet left. If a ghost catches him, he loses.
 
-This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
+This project was developed by Vinícius Macedo Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
 
 ## Implemented Features
 
@@ -12,11 +12,11 @@ This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André M
 - **Buttons** - Functional and interactive buttons.
 - **Keyboard control** - The keyboard inputs are received through the respective events and interpreted according to the current game state.
 - **Player control** - The player moves with the keyboard control.
-- **Collisions detection** - Collisions between different objects are verified. (Ex: Player, Ghosts and the Map Walls).
+- **Collisions detection** - Collisions between different objects are verified. (Ex: Player, Enemies and the Map Walls).
 - **Score System** - When the player eats pellets the score increases.
 - **Animations** - We incorporated animations for the player and the ghosts and designed the map with a personalized handmade font.
-- **Music and Sound Effects** - The game as theme music for every action. (Ex: Start of the Game, Player Moving Eating Pellets, Game Over)
-- **Enemies independent Movement** - The ghosts move without the need of any player input.
+- **Music and Sound Effects** - The game as theme music for every action. (Start of the Game, Player Moving Eating Pellets, Game Over)
+- **Enemies independent Movement** - the enemies move without the need of any player input.
 
 ## Planned Features
 
@@ -79,6 +79,6 @@ We created some of the most important test methods but we did not implement any 
 Inicially the work was divided in a mutual way but as the deadline approached we did our best to have everything ready without distribuiting the work equally. We still worked the best we could and we are really proud of our work! It helped us to enrich our java and design pattern, refactoring knwoledge and to work as a team to accomplish our common goal.
 
 - André Morais: 30%
-- Carlota Leite: 25%
+- Maria Carlota Leite: 25%
 - Vinícius Corrêa: 45%
 

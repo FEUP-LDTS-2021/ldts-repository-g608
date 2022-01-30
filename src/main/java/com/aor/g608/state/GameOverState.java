@@ -13,7 +13,6 @@ import java.net.URISyntaxException;
 
 public class GameOverState implements State{
 
-    private int selected;
     private Game game;
     private Menu menu;
 
