@@ -18,7 +18,6 @@ This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André M
 <br />
 
 <br>
-<br>
 
 <p align="center" justify="center">
   <img src="docs/images/Screenshots/mainMenu.png" width = "400"/>
