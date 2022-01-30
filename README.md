@@ -6,8 +6,27 @@ Our game is based on a game called Pacman, originally created by NAMCO. Basicall
 
 This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
 
-<img src="docs/images/Screenshots/GAME.png" width = "400">
-<img src="docs/images/Screenshots/mainMenu.png" width = "400">
+<p align="center" justify="center">
+  <img src="docs/images/Screenshots/GAME.png" width = "400"/>
+</p>
+<p align="center">
+  <b><i>Img 1. Game demo </i></b>
+</p>
+<br>
+<br />
+
+<br>
+<br>
+
+<p align="center" justify="center">
+  <img src="docs/images/Screenshots/mainMenu.png" width = "400"/>
+</p>
+<p align="center">
+  <b><i>Img 2. Menu demo </i></b>
+</p>
+<br>
+<br />
+
 
 
 
