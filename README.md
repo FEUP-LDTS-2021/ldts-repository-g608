@@ -45,6 +45,8 @@ The use of these patterns in the current design allow the following benefits:
 - Easy to add new features throughout the development stage.
 
 
+https://user-images.githubusercontent.com/73285619/151682590-3175bc74-bcfd-4dbb-bacb-5b338b5b99a0.png
+
 ### GUI
 #### Problem in Context:
 Aiming for a structured code, we tried to make it as general as possible. The lanterna library contains functions that aren't useful to our program, Interface Segregation Principle violation, and lacks some other functions that our interface needs. Also, if using the raw library, our game (high level module) would be directly depending on a low level module. This is a violation of the Dependency Inversion Principle (DIP). A need to implement an interface that solves these problems was born. 
