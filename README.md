@@ -78,7 +78,7 @@ Aiming for a structured code, we tried to make it as general as possible. The la
 #### The Pattern: 
 We have applied the **_Facade_** pattern. A facade provides a simple interface to a complex subsystem which contains lots of moving parts, allowing us to only include the features that really matter.
 
-These classes can be found in the following files:
+These classes are:
 - [Game](../src/main/java/com/aor/g608/Game.java)
 - [GUI](../src/main/java/com/aor/g608/gui/GUI.java)
 - [LanternaGUI](../src/main/java/com/aor/g608/gui/LanternaGUI.java)
