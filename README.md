@@ -6,6 +6,12 @@ Our game is based on a game called Pacman, originally created by NAMCO. Basicall
 
 This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André Morais (up202005303@edu.fe.up.pt) and Carlota Leite (up202005428@edu.fe.up.pt) for LDTS 2021-22.
 
+
+![](docs/images/Screenshots/GAME.png)
+![](docs/images/Screenshots/mainMenu.png)
+
+
+
 ## Implemented Features
 
 - **Connected Menus** - The user has the capability of browsing through the different menus including in game ones. (Main Menu, Instructions, Play and Pause).
@@ -43,10 +49,6 @@ The use of these patterns in the current design allow the following benefits:
 - The several states that represent the different menus become explicit in the code, instead of relying on a series of flags.
 - A well organized code acknowledging the Single Responsibility Principle.
 - Easy to add new features throughout the development stage.
-
-
-![](docs/images/Screenshots/GAME.png)
-![](docs/images/Screenshots/mainMenu.png)
 
 ### GUI
 #### Problem in Context:
