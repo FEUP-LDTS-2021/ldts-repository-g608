@@ -45,7 +45,8 @@ The use of these patterns in the current design allow the following benefits:
 - Easy to add new features throughout the development stage.
 
 
-https://user-images.githubusercontent.com/73285619/151682590-3175bc74-bcfd-4dbb-bacb-5b338b5b99a0.png
+![](docs/images/Screenshots/GAME.png)
+![](docs/images/Screenshots/mainMenu.png)
 
 ### GUI
 #### Problem in Context:
