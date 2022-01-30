@@ -8,8 +8,6 @@ This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André M
 
 
 ![](docs/images/Screenshots/GAME.png)
-![](docs/images/Screenshots/mainMenu.png)
-
 
 
 ## Implemented Features
@@ -84,6 +82,6 @@ We created some of the most important test methods but we did not implement any 
 Inicially the work was divided in a mutual way but as the deadline approached we did our best to have everything ready without distribuiting the work equally. We still worked the best we could and we are really proud of our work! It helped us to enrich our java and design pattern, refactoring knwoledge and to work as a team to accomplish our common goal.
 
 - André Morais: 30%
-- Carlota Leite: 20%
-- Vinícius Corrêa: 50%
+- Carlota Leite: 25%
+- Vinícius Corrêa: 45%
 
