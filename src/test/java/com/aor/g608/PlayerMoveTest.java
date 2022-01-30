@@ -15,7 +15,7 @@ public class PlayerMoveTest {
     public void MovePlayerTest() throws FileNotFoundException {
        Map map = new Map(7,7, null);
        Player player = new Player(4, 4);
-       map.movePlayer(map.moveUp());
+       map.movePlayer(player.moveUp());
        assertEquals(false,map.canPlayerMove(player.getPosition()));
     }
 
