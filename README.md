@@ -49,7 +49,7 @@ This project was developed by Vinícius Corrêa (up202001417@fe.up.pt), André M
 
 - **Smarter Enemy IA** - We inicially implememented an IA that allowed the ghosts to follow the player without crashing into walls but the game became so hard that the player couldn't win. 
 - **Powerups** - We started writing the code for the bigger pellets but we didn't implement the mechanics in game because of lack of time.
-- All the planned features were successfully implemented except the ones mentioned above.
+- All the planned features were successfully implemented except the ones mentioned above due to deadline.
 
 ## Design
 
